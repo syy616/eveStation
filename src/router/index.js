@@ -1,11 +1,20 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import stationOverview from '../views/StationOverview.vue'
 
 const routes = [
   {
-    path: '/',
+    redirect: '/login',
+    path: '/'
+  },
+  {
+    path: '/login',
     name: 'login',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
+    component: () => import('../views/Login.vue'),
+    meta: {
+      keepAlive: true,
+      title:'储能E管家 | 登录'
+    }
   },
   {
     path: '/home',
@@ -13,8 +22,22 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: Home
-  }
+    component: Home,
+    meta: {
+      keepAlive: true,
+      title:'储能E管家 | 主页'
+    }
+  },
+  {
+    path: '/stationOverview',
+    name: 'stationOverview',
+    component: stationOverview,
+    meta: {
+      keepAlive: true,
+      title:'储能E管家 | 电站总览'
+    }
+  },
+
 ]
 
 const router = createRouter({
@@ -22,14 +45,14 @@ const router = createRouter({
   routes
 })
 
-// router.beforeEach((to, from, next) => {
-//     document.title = `${to.meta.title} | 测试后台`;
-//     const role = localStorage.getItem('username')
-//     if (!role && to.path !== "/login") {
-//         next('/login');
-//     } else {
-//         next();
-//     }
-// })
+router.beforeEach((to, from, next) => {
+    document.title = to.meta.title ? to.meta.title : '储能E管家';
+    const role = localStorage.getItem('username')
+    if (!role && to.path !== "/login") {
+        next('/login');
+    } else {
+        next();
+    }
+})
 
 export default router
