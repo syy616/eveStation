@@ -1,17 +1,15 @@
 export default {
      menus: {
-      header: {
-       home: "Home"
-      },
-      footer: {
-       copyright: "copyright: MosterSeven.",
-      },
+          footer: ['Plant Overview', 'Total event', 'Historical data', 'Mine']
+
      },
-     page: {
-      text: {
-       info: "Hello World !",
-      },
+     topTitle: {
+          title: "Plant Overview"
      },
-      
-    };
-    
+     allStation: {
+          allCharge: "Total Charge",
+          allDisCharge: "Total Discharge",
+          sysCount: "System running ratio"
+
+     }
+};

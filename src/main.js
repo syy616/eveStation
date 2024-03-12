@@ -1,5 +1,6 @@
 import { createApp } from "vue";
-import "./themes.css";
+import "./themes/themes.css";
+import "./themes/themes1.css";
 import App from "./App.vue";
 import "amfe-flexible/index.js"; //设置根字体
 import router from "./router"; //路由

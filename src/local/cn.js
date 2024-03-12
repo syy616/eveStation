@@ -1,16 +1,13 @@
 export default {
     menus: {
-        header: {
-            home: "登录"
-        },
-        footer: {
-            copyright: "版权所有",
-        },
+        footer:['电站总览','总事件','历史数据','我的']
     },
-    page: {
-        text: {
-            info: "你好世界 !",
-        },
+    topTitle:{
+        title:"电站总览"
     },
-
+    allStation:{
+        allCharge:"总充电量",
+        allDisCharge:"总放电量",
+        sysCount:"系统运行占比"
+    }
 };

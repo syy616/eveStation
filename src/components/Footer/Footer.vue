@@ -1,26 +1,31 @@
 <script setup>
 import { ref } from 'vue';
 import footerItem from "@components/Footer/FooterItem.vue";
+import { useI18n } from 'vue-i18n'
 
 //数据定义
+const i18n = useI18n()
 const menuList = ref([
-    { label: "电站总览", id: "1001", isActive: true, icon: new URL("@/assets/images/Index/chart.png", import.meta.url), activeIcon: new URL("@/assets/images/Index/chart_selected.png", import.meta.url) },
-    { label: "总事件", id: "1002", isActive: false, icon: new URL("@/assets/images/Index/rmon.png", import.meta.url), activeIcon: new URL("@/assets/images/Index/rmon_selected.png", import.meta.url) },
-    { label: "历史数据", id: "1003", isActive: false, icon: new URL("@/assets/images/Index/user.png", import.meta.url), activeIcon: new URL("@/assets/images/Index/user_selected.png", import.meta.url) },
-    { label: "我的", id: "1004", isActive: false, icon: new URL("@/assets/images/Index/worktop.png", import.meta.url), activeIcon: new URL("@/assets/images/Index/worktop_selected.png", import.meta.url) }
+    { 
+    label: i18n.t("menus.footer[0]") , id: "0", path:'/IndexPage/allStation',
+    icon: new URL("@/assets/images/Index/chart.png", import.meta.url), 
+    activeIcon: new URL("@/assets/images/Index/chart_selected.png", import.meta.url) },
+    { label: i18n.t("menus.footer[1]"), id: "1",path:'/IndexPage/allEvent',  icon: new URL("@/assets/images/Index/rmon.png", import.meta.url), activeIcon: new URL("@/assets/images/Index/rmon_selected.png", import.meta.url) },
+    { label: i18n.t("menus.footer[2]"), id: "2",path:'/IndexPage/historyData',  icon: new URL("@/assets/images/Index/user.png", import.meta.url), activeIcon: new URL("@/assets/images/Index/user_selected.png", import.meta.url) },
+    { label: i18n.t("menus.footer[3]"), id: "3",path:'/IndexPage/myPage',  icon: new URL("@/assets/images/Index/worktop.png", import.meta.url), activeIcon: new URL("@/assets/images/Index/worktop_selected.png", import.meta.url) }
 ])
 
 </script>
 
 <template>
     <div class="footerPage">
-        <footerItem v-for="(item, index) in menuList" :key="index" path="" isActive="item.isActive">
+        <footerItem v-for="(item, index) in menuList" :key="index" :clildProps="item.path" item-id="item.id">
             <template v-slot:item-icon>
-                <img :src="item.icon">
+                <img :src="item.activeIcon">
             </template>
 
             <template #item-icon-active>
-                <img :src="activeIcon">
+                <img :src="item.icon">
             </template>
 
             <template #item-text>
@@ -33,6 +38,7 @@ const menuList = ref([
 <style lang="less">
 .footerPage {
     height: 90px;
+    padding-bottom: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -47,7 +53,7 @@ const menuList = ref([
             }
         }
         .menuTitle {
-            color: rgba(255, 255, 255, 0.55);
+            color: var(--menuColor);
             font-size: 20px;
             text-align: center;
         }

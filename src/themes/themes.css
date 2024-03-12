@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body,
+#app {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color);
+}
+
+
+
+html [data-theme='dark'] {
+    --text-color: #fff;
+    --bg-color: #181818;
+    --login-bg-img: url("@/assets/images/login/bg_dark.png");
+    --login-logo-img: url("@/assets/images/login/logo_white.png");
+    --vant-cell-border: #5E5E5E;
+    --vant-placeholder: #696969;
+    --topTitle-color:#191919;
+    --menuColor:#ffffff8c;
+    --allStation-box-bg:rgba(56, 56, 56, 1);
+    --allStation-box-title-color:rgba(255, 255, 255, 1);
+    --allStation-box-data-color:rgba(255, 255, 255, 1);
+    --allStation-system-chart-bg:linear-gradient(to top, #343434 0%, rgba(52,52,52,0) 100%);
+}
+
+:root {
+    --text-color: #191919;
+    --bg-color: #f3f3f3;
+    --login-bg-img: url("@/assets/images/login/bg_white.png");
+    --login-logo-img: url("@/assets/images/login/logo_dark.png");
+    --vant-cell-border: #9f9f9f;
+    --vant-placeholder: #b4b4b4;
+    --topTitle-color:#ffffff;
+    --menuColor:#ffffff8c;
+    --allStation-box-bg:#ffffff;
+    --allStation-box-title-color:rgba(0, 0, 0, 0.60);
+    --allStation-box-data-color:rgba(0, 0, 0, 0.90);
+    --allStation-system-chart-bg:linear-gradient( to top, #FFFFFF 0%, rgba(255,255,255,0) 100%);
+
+}

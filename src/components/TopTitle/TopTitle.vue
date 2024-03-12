@@ -1,0 +1,22 @@
+<script setup>
+import { ref } from 'vue';
+//数据定义
+const title = ref('电站总览')
+</script>
+
+<template>
+    <div class="topTitle">
+        <div class="titleBox">{{ $t("topTitle.title") }}</div>
+    </div>
+</template>
+<style lang="less">
+    .topTitle{
+        width: 100%;
+        height: 88px;
+        line-height: 88px;
+        text-align: center;
+        font-size: 36px;
+        font-weight: 500;
+        color: #FFFFFF;
+    }
+</style>
