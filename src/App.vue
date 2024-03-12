@@ -1,6 +1,5 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-
+import HelloWorld from "./components/HelloWorld.vue";
 </script>
 
 <template>
@@ -15,7 +14,7 @@ import HelloWorld from './components/HelloWorld.vue'
 </template>
 
 <style scoped lang="less">
-.indexHome{
+.indexHome {
   width: 100%;
   height: 100%;
 }

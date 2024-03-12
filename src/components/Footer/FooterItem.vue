@@ -3,7 +3,7 @@ import { ref } from 'vue';
 
 const isActive = ref(true);
 props:{
-    
+
 }
 
 </script>
@@ -19,7 +19,7 @@ props:{
             </div>
         </div>
         <div class="menuTitle">
-            <slot name="item-text"></slot>
+            <slot name="item-text"></slot>a
         </div>
     </div>
 </template>
