@@ -1,13 +1,13 @@
+import { menus_cn as menus, topTitle_cn as topTitle, allStation_cn as allStation,stationType_cn as stationType,stationData_cn as stationData } from "./module/index";
+
+// 导入登录页中文翻译
+import { login_cn as login } from "./module/login";
+
 export default {
-    menus: {
-        footer:['电站总览','总事件','历史数据','我的']
-    },
-    topTitle:{
-        title:"电站总览"
-    },
-    allStation:{
-        allCharge:"总充电量",
-        allDisCharge:"总放电量",
-        sysCount:"系统运行占比"
-    }
+    menus,
+    topTitle,
+    allStation,
+    stationType,
+    stationData,
+  login,
 };

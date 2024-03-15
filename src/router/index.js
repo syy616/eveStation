@@ -31,7 +31,7 @@ const routes = [
   {
     path: "/IndexPage",
     name: "IndexPage",
-    redirect: '/IndexPage/allStation',
+    redirect: "/IndexPage/StationOverview",
     component: () => import("../views/IndexPage.vue"),
     meta: {
       keepAlive: true,
@@ -39,45 +39,53 @@ const routes = [
       title: "储能E管家 | 首页",
     },
     children: [
-      // {
-      //   path: '/IndexPage',
-      //   redirect: '/IndexPage/allStation' // 重定向到子路由login
-      // },
       {
-        path: "allStation",
-        name: "allStation",
-        component: () => import("../views/AllStation.vue"),
+        path: "StationOverview",
+        name: "StationOverview",
+        redirect: "/IndexPage/StationOverview/allStation",
+        component: () => import("../views/IndexPages/StationOverview.vue"),
         meta: {
+          keepAlive: true,
           requiresAuth: true,
           title: "储能E管家 | 电站总览",
         },
-        // children:[
-        //   {
-        //     path: "allEnergy",
-        //     name: "allEnergy",
-        //     component: () => import("../views/StationOverview/AllEnergy.vue"),
-        //     meta: {
-        //       keepAlive: true,
-        //       requiresAuth: true,
-        //       title: "储能E管家 | 场站",
-        //     },
-        //   },
-        //   {
-        //     path: "allProfit",
-        //     name: "allProfit",
-        //     component: () => import("../views/StationOverview/AllProfit.vue"),
-        //     meta: {
-        //       keepAlive: true,
-        //       requiresAuth: true,
-        //       title: "储能E管家 | 收益",
-        //     },
-        //   }
-        // ]
+        children: [
+          {
+            path: "allStation",
+            name: "allStation",
+            component: () => import("../views/StationOverview/AllStation.vue"),
+            meta: {
+              keepAlive: true,
+              requiresAuth: true,
+              title: "储能E管家 | 场站",
+            },
+          },
+          {
+            path: "allProfit",
+            name: "allProfit",
+            component: () => import("../views/StationOverview/AllProfit.vue"),
+            meta: {
+              keepAlive: true,
+              requiresAuth: true,
+              title: "储能E管家 | 收益",
+            },
+          },
+          {
+            path: "allEnergy",
+            name: "allEnergy",
+            component: () => import("../views/StationOverview/AllEnergy.vue"),
+            meta: {
+              keepAlive: true,
+              requiresAuth: true,
+              title: "储能E管家 | 能耗",
+            },
+          },
+        ],
       },
       {
-        path: "allEvent",
-        name: "allEvent",
-        component: () => import("../views/AllEvent.vue"),
+        path: "totalEvent",
+        name: "totalEvent",
+        component: () => import("../views/IndexPages/TotalEvent.vue"),
         meta: {
           keepAlive: true,
           requiresAuth: true,
@@ -87,7 +95,7 @@ const routes = [
       {
         path: "historyData",
         name: "historyData",
-        component: () => import("../views/HistoryData.vue"),
+        component: () => import("../views/IndexPages/HistoryData.vue"),
         meta: {
           keepAlive: true,
           requiresAuth: true,
@@ -97,14 +105,65 @@ const routes = [
       {
         path: "myPage",
         name: "myPage",
-        component: () => import("../views/MyPage.vue"),
+        component: () => import("../views/IndexPages/MyPage.vue"),
         meta: {
           keepAlive: true,
           requiresAuth: true,
           title: "储能E管家 | 我的",
         },
-      }
-      
+      },
+    ],
+  },
+  {
+    path: "/station",
+    name: "station",
+    component: () => import("../views/Stations/index.vue"),
+    meta: {
+      keepAlive: true,
+      requiresAuth: true,
+      title: "储能E管家 | 场站",
+    },
+    children: [
+      {
+        path: "system",
+        name: "system",
+        component: () => import("../views/Stations/tabs/system.vue"),
+        meta: {
+          keepAlive: true,
+          requiresAuth: true,
+          title: "储能E管家 | 系统",
+        },
+      },
+      {
+        path: "income",
+        name: "income",
+        component: () => import("../views/Stations/tabs/income.vue"),
+        meta: {
+          keepAlive: true,
+          requiresAuth: true,
+          title: "储能E管家 | 收益",
+        },
+      },
+      {
+        path: "equipment",
+        name: "equipment",
+        component: () => import("../views/Stations/tabs/equipment.vue"),
+        meta: {
+          keepAlive: true,
+          requiresAuth: true,
+          title: "储能E管家 | 设备",
+        },
+      },
+      {
+        path: "energy",
+        name: "energy",
+        component: () => import("../views/Stations/tabs/energy.vue"),
+        meta: {
+          keepAlive: true,
+          requiresAuth: true,
+          title: "储能E管家 | ",
+        },
+      },
     ],
   },
 ];
@@ -116,7 +175,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title ? to.meta.title : "储能E管家";
-  const role = localStorage.getItem("username");
+  const role = localStorage.getItem("userInfo");
   if (to.meta.requiresAuth && !role && to.path !== "/login") {
     next("/login");
   } else {

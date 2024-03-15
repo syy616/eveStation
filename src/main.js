@@ -10,8 +10,10 @@ import "vant/lib/index.css";
 import "vant/es/toast/style";
 import "vant/es/dialog/style";
 import pinia from "./store/index";
+import * as echarts from 'echarts'
 
 const app = createApp(App);
+app.config.globalProperties.$echarts = echarts
 app.config.globalProperties.$i18n = i18n;
 // app.config.globalProperties.$toast = showToast;
 

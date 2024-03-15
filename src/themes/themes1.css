@@ -14,9 +14,43 @@ body,
 
 
 html [data-theme='dark'] {
+    --footer-bg:#2C2C2C;
+    --topTitle-bg:#191919;
     --allStation-system-chart-bg:linear-gradient(to top, #343434 0%, rgba(52,52,52,0) 100%);
+    --allStation-tab-title:#FFFFFF;
+    --allStation-tab-bg:#2C2C2C;
+    --allStation-tab2-bg:#4B4B4B;
+    --allStation-station-bg:#4B4B4B;
+    --allStation-data-title:#FFFFFF8C;
+    --allStation-state-charge:#2A83FF;
+    --allStation-state-disCharge:#FFBA00;
+    --allStation-state-Failure:#FF616D;
+    --allStation-state-OffGrid:#A9A9A9; 
+    --allStation-state-Standby:#20CFED;
+    --allStation-state-charge-bg:url("@/assets/images/Index/bg_1.png");
+    --allStation-state-disCharge-bg:url("@/assets/images/Index/bg_2.png");
+    --allStation-state-Failure-bg:url("@/assets/images/Index/bg_3.png");
+    --allStation-state-OffGrid-bg:url("@/assets/images/Index/bg_4.png"); 
+    --allStation-state-Standby-bg:url("@/assets/images/Index/bg_5.png");
 }
 
 :root {
+    --footer-bg:#f3f3f3;
+    --topTitle-bg:linear-gradient(to left, #DFF8F3 10%, #E7F2F6 100%);
     --allStation-system-chart-bg:linear-gradient( to top, #FFFFFF 0%, rgba(255,255,255,0) 100%);
+    --allStation-tab-title:#000000;
+    --allStation-tab-bg:#ffffff;
+    --allStation-tab2-bg:#F3F3F3;
+    --allStation-station-bg:#FFFFFF;
+    --allStation-data-title:#00000099;
+    --allStation-state-charge:#2A83FF;
+    --allStation-state-disCharge:#FFBA00;
+    --allStation-state-Failure:#FF616D;
+    --allStation-state-OffGrid:#A9A9A9; 
+    --allStation-state-Standby:#20CFED;
+    --allStation-state-charge-bg:#FFFFFF;
+    --allStation-state-disCharge-bg:#FFFFFF;
+    --allStation-state-Failure-bg:#FFFFFF;
+    --allStation-state-OffGrid-bg:#FFFFFF; 
+    --allStation-state-Standby-bg:#FFFFFF;
 }

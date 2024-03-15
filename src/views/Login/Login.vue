@@ -1,25 +1,33 @@
 <template>
   <div class="login">
     <div class="login-content">
-      <div class="title-logo"></div>
-      <div class="form">
+      <div class="title-logo">
+        <div><img src="@/assets/images/login/eve_logo.png" alt="" /><br /></div>
+        <span>{{ $t("login.welcome") }}</span>
+      </div>
+      <van-form class="form">
         <van-field
-          v-model="userInfo.uid"
-          label="账 号"
-          placeholder="请输入手机号"
+          v-model.trim="userInfo.uid"
+          :label="$t('login.account')"
+          type="text"
+          :placeholder="$t('login.placeholder_label')"
         />
         <van-field
-          v-model="userInfo.pwd"
-          label="密 码"
-          placeholder="请输入密码"
+          v-model.trim="userInfo.pwd"
+          :label="$t('login.password')"
+          type="password"
+          :placeholder="$t('login.placeholder_input')"
         />
         <van-checkbox class="remember-password" v-model="isRemember"
-          >记住密码
+          >{{ $t("login.remmberPassord") }}
         </van-checkbox>
-        <van-button class="submit-button">登 录</van-button>
-      </div>
+        <van-button class="submit-button" @click="onSubmit">{{
+          $t("login.register")
+        }}</van-button>
+      </van-form>
       <div class="link-area">
-        <span>暂无账户？</span> <span class="link">请联系管理员开通</span>
+        <span>{{ $t("login.tip") }}</span>
+        <span class="link">{{ $t("login.linktext") }}</span>
       </div>
     </div>
   </div>
@@ -27,17 +35,31 @@
 
 <script setup>
 //模块导入
-import { ref, onMounted, getCurrentInstance } from "vue";
-import { loginPage, test } from "@/api/index.js";
-import { showToast } from "vant";
+import { ref, reactive } from "vue";
+import { showFailToast } from "vant";
+import _ from "lodash";
+import { useRouter } from "vue-router";
+import useLocalStorage from "@/store/modules/localStorage";
+const store = useLocalStorage();
 //生命周期
-onMounted(() => {});
-
+//  onMounted(() => console.log(store.userInfo));
 //数据定义
-const userInfo = ref({ uid: null, pwd: null });
+const userInfo = reactive({ uid: "admin", pwd: "admin" });
 //定义是否记住密码
-const isRemember = ref(true);
-//方法
+const isRemember = ref(false);
+const router = useRouter();
+
+function onSubmit(params) {
+  _.debounce(() => {
+    if (!userInfo.uid || !userInfo.pwd) return;
+    if (userInfo.uid != "admin" && userInfo.pwd != "admin") {
+      return showFailToast("账号或密码错误！");
+    } else {
+      store.setUserInfo(userInfo);
+      router.push("/IndexPage");
+    }
+  }, 150)();
+}
 </script>
 
 <style scoped lang="less">
@@ -55,15 +77,25 @@ const isRemember = ref(true);
     box-sizing: border-box;
 
     .title-logo {
-      width: 367px;
       height: 140px;
       margin-left: 32px;
-      background: var(--login-logo-img) no-repeat;
       background-size: 100%;
+      div {
+        display: flex;
+        img {
+          height: 70px;
+          width: 200px;
+        }
+      }
+      span {
+        font-weight: 600;
+        font-size: 44px;
+        color: var(--text-color);
+      }
     }
 
     .form {
-      margin-top: 30px;
+      margin-top: 40px;
       padding: 0 24px;
 
       .van-field {
@@ -72,8 +104,8 @@ const isRemember = ref(true);
 
         border: none;
         color: var(--text-color);
-        :deep .van-field__label,
-        :deep .van-field__value {
+        :deep(.van-field__label),
+        :deep(.van-field__value) {
           label {
             color: var(--text-color);
           }
@@ -96,7 +128,7 @@ const isRemember = ref(true);
         align-items: center;
         margin-top: 30px;
 
-        :deep .van-checkbox__icon {
+        :deep(.van-checkbox__icon) {
           height: 34px;
           width: 34px;
           i {
@@ -106,7 +138,7 @@ const isRemember = ref(true);
             font-size: 28px;
           }
         }
-        :deep .van-checkbox__label {
+        :deep(.van-checkbox__label) {
           font-size: 30px;
           line-height: 30px;
           color: var(--text-color);
@@ -117,7 +149,7 @@ const isRemember = ref(true);
         width: 100%;
         background-color: #40e2c1;
         border-color: #40e2c1;
-        :deep .van-button__content {
+        :deep(.van-button__content) {
           .van-button__text {
             font-size: 32px;
             color: var(--text-color);
@@ -131,7 +163,7 @@ const isRemember = ref(true);
       min-height: 300px;
       display: flex;
       justify-content: center;
-      align-items: end;
+      align-items: flex-end;
       padding: 0 24px;
       padding-bottom: 20px;
       span {
