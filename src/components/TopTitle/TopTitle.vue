@@ -9,7 +9,7 @@ const title = ref('电站总览')
         <div class="titleBox">{{ $t("topTitle.title") }}</div>
     </div>
 </template>
-<style lang="less">
+<style scoped lang="less">
     .topTitle{
         width: 100%;
         height: 88px;

@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -15,7 +16,7 @@ body,
 
 html [data-theme='dark'] {
     --footer-bg:#2C2C2C;
-    --topTitle-bg:#191919;
+    --topTitle-bg:#2c2c2cFF;
     --allStation-system-chart-bg:linear-gradient(to top, #343434 0%, rgba(52,52,52,0) 100%);
     --allStation-tab-title:#FFFFFF;
     --allStation-tab-bg:#2C2C2C;
@@ -32,10 +33,16 @@ html [data-theme='dark'] {
     --allStation-state-Failure-bg:url("@/assets/images/Index/bg_3.png");
     --allStation-state-OffGrid-bg:url("@/assets/images/Index/bg_4.png"); 
     --allStation-state-Standby-bg:url("@/assets/images/Index/bg_5.png");
+    --allStation-es-bg:url("@/assets/images/Index/esBg.png");
+    --allprofit-echart-title:#FFFFFF59;
+    --systemOverview-arrow:-10px 0 10px -5px #000000CC;
+    --systemOverview-showBg:#2c2c2cFF;
+    --systemOverview-sysBg:#4B4B4BFF;
+    --systemOverview-SubSys-bg:url("@/assets/images/system/systemBg.png");
 }
 
 :root {
-    --footer-bg:#f3f3f3;
+    --footer-bg:#ffffff;
     --topTitle-bg:linear-gradient(to left, #DFF8F3 10%, #E7F2F6 100%);
     --allStation-system-chart-bg:linear-gradient( to top, #FFFFFF 0%, rgba(255,255,255,0) 100%);
     --allStation-tab-title:#000000;
@@ -53,4 +60,10 @@ html [data-theme='dark'] {
     --allStation-state-Failure-bg:#FFFFFF;
     --allStation-state-OffGrid-bg:#FFFFFF; 
     --allStation-state-Standby-bg:#FFFFFF;
+    --allStation-es-bg:url("@/assets/images/Index/esBg_white.png");
+    --allprofit-echart-title:#f3f3f366;
+    --systemOverview-arrow:-10px 0 10px -10px #00000033;
+    --systemOverview-showBg:#ffffff;
+    --systemOverview-sysBg:#F3F3F3FF;
+    --systemOverview-SubSys-bg:url("@/assets/images/system/systemBg.png");
 }

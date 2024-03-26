@@ -4,15 +4,16 @@ import footerItem from "@components/Footer/FooterItem.vue";
 import { useI18n } from 'vue-i18n'
 
 //数据定义
-const {t} = useI18n()
+const { t } = useI18n()
 const menuList = ref([
-    { 
-    label: t("menus.footer[0]") , id: "0", path:'/IndexPage/StationOverview',
-    icon: new URL("@/assets/images/Index/chart.png", import.meta.url), 
-    activeIcon: new URL("@/assets/images/Index/chart_selected.png", import.meta.url) },
-    { label: t("menus.footer[1]"), id: "1",path:'/IndexPage/totalEvent',  icon: new URL("@/assets/images/Index/rmon.png", import.meta.url), activeIcon: new URL("@/assets/images/Index/rmon_selected.png", import.meta.url) },
-    { label: t("menus.footer[2]"), id: "2",path:'/IndexPage/historyData',  icon: new URL("@/assets/images/Index/user.png", import.meta.url), activeIcon: new URL("@/assets/images/Index/user_selected.png", import.meta.url) },
-    { label: t("menus.footer[3]"), id: "3",path:'/IndexPage/myPage',  icon: new URL("@/assets/images/Index/worktop.png", import.meta.url), activeIcon: new URL("@/assets/images/Index/worktop_selected.png", import.meta.url) }
+    {
+        label: t("menus.footer[0]"), id: "0", path: '/IndexPage/StationOverview',
+        icon: new URL("@/assets/images/Index/chart.png", import.meta.url),
+        activeIcon: new URL("@/assets/images/Index/chart_selected.png", import.meta.url)
+    },
+    { label: t("menus.footer[1]"), id: "1", path: '/IndexPage/totalEvent', icon: new URL("@/assets/images/Index/rmon.png", import.meta.url), activeIcon: new URL("@/assets/images/Index/rmon_selected.png", import.meta.url) },
+    { label: t("menus.footer[2]"), id: "2", path: '/IndexPage/historyData', icon: new URL("@/assets/images/Index/user.png", import.meta.url), activeIcon: new URL("@/assets/images/Index/user_selected.png", import.meta.url) },
+    { label: t("menus.footer[3]"), id: "3", path: '/IndexPage/myPage', icon: new URL("@/assets/images/Index/worktop.png", import.meta.url), activeIcon: new URL("@/assets/images/Index/worktop_selected.png", import.meta.url) }
 ])
 
 </script>
@@ -35,7 +36,7 @@ const menuList = ref([
     </div>
 </template>
 
-<style lang="less">
+<style scoped lang="less">
 .footerPage {
     height: 110px;
     // padding-bottom: 20px;
@@ -43,22 +44,5 @@ const menuList = ref([
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    .footerItem {
-        width: 25%;
-        .menuItem{
-            height: 49px;
-            text-align: center;
-            img{
-                width: 49px;
-                height: 49px;
-            }
-        }
-        .menuTitle {
-            color: var(--menuColor);
-            font-size: 20px;
-            text-align: center;
-        }
-    }
 }
 </style>

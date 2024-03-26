@@ -1,0 +1,26 @@
+export const system_cn = {
+  all: "全部",
+  charge: "充电",
+  disCharge: "放电",
+  standby: "待机",
+  failure: "故障",
+  shutDown: "离网",
+  charge_value: "充电量",
+  disCharge_value: "放电量",
+  power: "功率",
+  soc: "SOC",
+  noMore: "没有更多了",
+};
+export const system_en = {
+  all: "Total",
+  charge: "Charge",
+  disCharge: "DisCharge",
+  standby: "Standby",
+  failure: "Failure",
+  shutDown: "Off-Grid",
+  charge_value: "Charge",
+  disCharge_value: "DisCharge",
+  power: "Power",
+  soc: "SOC",
+  noMore: "No More",
+};

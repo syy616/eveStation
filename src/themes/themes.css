@@ -18,28 +18,64 @@ body,
 
 html [data-theme='dark'] {
     --text-color: #fff;
+    --text-shallow-color: rgba(255, 255, 255, 0.55);
     --bg-color: #181818;
     --login-bg-img: url("@/assets/images/login/bg_dark.png");
     --vant-cell-border: #5E5E5E;
     --vant-placeholder: #696969;
-    --topTitle-color:#ffffff;
-    --menuColor:#ffffff8c;
-    --allStation-box-bg:rgba(56, 56, 56, 1);
-    --allStation-box-title-color:rgba(255, 255, 255, 1);
-    --allStation-box-data-color:rgba(255, 255, 255, 1);
-    --allStation-system-chart-bg:linear-gradient(to top, #343434 0%, rgba(52,52,52,0) 100%);
+    --topTitle-color: #ffffff;
+    --menuColor: #ffffff8c;
+    --allStation-box-bg: rgba(56, 56, 56, 1);
+    --allStation-box-title-color: rgba(255, 255, 255, 1);
+    --allStation-box-data-color: rgba(255, 255, 255, 1);
+    --allStation-system-chart-bg: linear-gradient(to top, #343434 0%, rgba(52, 52, 52, 0) 100%);
+    --stations-background-color: #181818;
+    --stations-head-color: #15191e;
+    --stations-bg-img: url("@/assets/images/station/Topo_dark.png");
+    --stations-echart-bg: linear-gradient(360deg, #343434 0%, #343434 100%);
+    --stations-echart-border: rgba(255, 255, 255, 0.4);
+    --stations-tab-bg: #2C2C2C;
+
+    --stations-van-picker-bg: #0c0c0c;
+    --stations-van-picker__mask: linear-gradient(180deg,
+            rgba(0, 0, 0, 0.8),
+            rgba(0, 0, 0, 0.41)),
+        linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4));
+
+    --system-tab-bg: #4b4b4b;
+    --system-text-color: rgba(255, 255, 255, 0.9);
+    --system-text-lightColor: rgba(255, 255, 255, 0.55);
+
+    
 }
 
 :root {
     --text-color: #191919;
+    --text-shallow-color: rgba(0, 0, 0, 0.60);
     --bg-color: #f3f3f3;
     --login-bg-img: url("@/assets/images/login/bg_white.png");
     --vant-cell-border: #9f9f9f;
     --vant-placeholder: #b4b4b4;
-    --topTitle-color:#000000;
-    --menuColor:#ffffff8c;
-    --allStation-box-bg:#ffffff;
-    --allStation-box-title-color:rgba(0, 0, 0, 0.60);
-    --allStation-box-data-color:rgba(0, 0, 0, 0.90);
-    --allStation-system-chart-bg:linear-gradient( to top, #FFFFFF 0%, rgba(255,255,255,0) 100%);
+    --topTitle-color: #000000;
+    --menuColor: #00000066;
+    --allStation-box-bg: #ffffff;
+    --allStation-box-title-color: rgba(0, 0, 0, 0.60);
+    --allStation-box-data-color: rgba(0, 0, 0, 0.90);
+    --allStation-system-chart-bg: linear-gradient(to top, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
+    --stations-background-color: #F3F3F3;
+    --stations-head-color: #e8e8e8;
+    --stations-bg-img: url("@/assets/images/station/Topo_white.png");
+    --stations-echart-bg: linear-gradient(360deg, #FFFFFF 0%, #E9EAEA 100%);
+    --stations-echart-border: rgba(0, 0, 0, 0.4);
+    --stations-tab-bg: #fff;
+
+    --stations-van-picker-bg: #fff;
+    --stations-van-picker__mask: linear-gradient(180deg,
+            rgba(255, 255, 255, 0.8),
+            rgba(255, 255, 255, 0.41)),
+        linear-gradient(0deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
+
+    --system-tab-bg: #cfcdcd;
+    --system-text-color: rgba(0, 0, 0, 0.9);
+    --system-text-lightColor: rgba(0, 0, 0, 0.55);
 }

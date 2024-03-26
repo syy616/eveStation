@@ -1,4 +1,5 @@
 import { createApp } from "vue";
+import "./assets/css/font.css";
 import "./themes/themes.css";
 import "./themes/themes1.css";
 import App from "./App.vue";
@@ -10,10 +11,14 @@ import "vant/lib/index.css";
 import "vant/es/toast/style";
 import "vant/es/dialog/style";
 import pinia from "./store/index";
-import * as echarts from 'echarts'
+import * as echarts from "echarts";
+import { Locale } from 'vant';
+// 引入英文语言包
+import enUS from 'vant/es/locale/lang/en-US';
 
+// Locale.use('en-US', enUS);
 const app = createApp(App);
-app.config.globalProperties.$echarts = echarts
+app.config.globalProperties.$echarts = echarts;
 app.config.globalProperties.$i18n = i18n;
 // app.config.globalProperties.$toast = showToast;
 

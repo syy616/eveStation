@@ -56,7 +56,7 @@ function onSubmit(params) {
       return showFailToast("账号或密码错误！");
     } else {
       store.setUserInfo(userInfo);
-      router.push("/IndexPage");
+      router.replace("/IndexPage");
     }
   }, 150)();
 }
@@ -68,6 +68,7 @@ function onSubmit(params) {
   height: 100%;
   background: var(--login-bg-img) no-repeat;
   background-size: 100%;
+  background-color: var(--bg-color);
   .login-content {
     display: flex;
     flex-direction: column;
@@ -97,7 +98,6 @@ function onSubmit(params) {
     .form {
       margin-top: 40px;
       padding: 0 24px;
-
       .van-field {
         margin-top: 2px;
         background-color: transparent;

@@ -1,9 +1,11 @@
 <script setup>
 //数据导入
 import tabListItem from "@components/StationCard/StationTabPage.vue";
-import { onMounted,computed, reactive, ref, toRaw } from 'vue'
+import { onMounted, computed, reactive, ref, toRaw } from 'vue'
 import { useRouter } from "vue-router";
 import { useI18n } from 'vue-i18n'
+import {unitChange,unitMoney} from "../../utils/unitChange";
+import imageName from '@/assets/images/Index/pic.png';
 //data
 const { t } = useI18n();
 const router = useRouter();
@@ -13,12 +15,12 @@ const stationName = ref('');
 const loading = ref(false);
 const finished = ref(false);
 const list = reactive([
-    { label: "亿纬锂能B区", id: 1, imgSrc: new URL("@/assets/images/Index/pic.png", import.meta.url), power: 123.10, dayCharge: 232.32, dayDisCharge: 456.37, capacity: 133.23, addr: "广东省惠州市仲恺高新区回风8路2323号", state: 1, runTime: 1000 },
-    { label: "亿纬锂能B区", id: 2, imgSrc: new URL("@/assets/images/Index/pic.png", import.meta.url), power: 123.40, dayCharge: 232.32, dayDisCharge: 456.35, capacity: 133.23, addr: "广东省惠州市仲恺高新区回风8路2323号", state: 2, runTime: 1000 },
-    { label: "亿纬锂能B区", id: 3, imgSrc: new URL("@/assets/images/Index/pic.png", import.meta.url), power: 123.35, dayCharge: 232.32, dayDisCharge: 456.35, capacity: 133.23, addr: "广东省惠州市仲恺高新区回风8路2323号", state: 3, runTime: 1000 },
-    { label: "亿纬锂能B区", id: 4, imgSrc: new URL("@/assets/images/Index/pic.png", import.meta.url), power: 123.14, dayCharge: 232.32, dayDisCharge: 456.35, capacity: 133.23, addr: "广东省惠州市仲恺高新区回风8路2323号", state: 5, runTime: 1000 },
-    { label: "亿纬锂能B区", id: 5, imgSrc: new URL("@/assets/images/Index/pic.png", import.meta.url), power: 123.26, dayCharge: 232.32, dayDisCharge: 456.35, capacity: 133.23, addr: "广东省惠州市仲恺高新区回风8路2323号", state: 6, runTime: 1000 },
-    { label: "亿纬锂能B区", id: 6, imgSrc: new URL("@/assets/images/Index/pic.png", import.meta.url), power: 123.28, dayCharge: 232.32, dayDisCharge: 456.35, capacity: 133.23, addr: "广东省惠州市仲恺高新区回风8路2323号", state: 4, runTime: 1000 },
+    { label: "亿纬锂能B区", id: 1, imgSrc: imageName, power: 132.10, dayCharge: 232422.32, dayDisCharge: 456223.37, capacity: 456.23, addr: "广东省惠州市仲恺高新区回风8路2323号亿纬锂能B区宿舍", state: 1, runTime: 1000 },
+    { label: "亿纬锂能B区", id: 2, imgSrc: imageName, power: 123.40, dayCharge: 232.32, dayDisCharge: 456.35, capacity: 133.23, addr: "广东省惠州市仲恺高新区回风8路2323号", state: 2, runTime: 1000 },
+    { label: "亿纬锂能B区", id: 3, imgSrc: imageName, power: 123.35, dayCharge: 232.32, dayDisCharge: 456.35, capacity: 133.23, addr: "广东省惠州市仲恺高新区回风8路2323号", state: 3, runTime: 1000 },
+    { label: "亿纬锂能B区", id: 4, imgSrc: imageName, power: 123.14, dayCharge: 232.32, dayDisCharge: 456.35, capacity: 133.23, addr: "广东省惠州市仲恺高新区回风8路2323号", state: 5, runTime: 1000 },
+    { label: "亿纬锂能B区", id: 5, imgSrc: imageName, power: 123.26, dayCharge: 232.32, dayDisCharge: 456.35, capacity: 133.23, addr: "广东省惠州市仲恺高新区回风8路2323号", state: 6, runTime: 1000 },
+    { label: "亿纬锂能B区", id: 6, imgSrc: imageName, power: 123.28, dayCharge: 232.32, dayDisCharge: 456.35, capacity: 133.23, addr: "广东省惠州市仲恺高新区回风8路2323号", state: 4, runTime: 1000 },
 ]);
 const newlist = [
     { label: "亿纬锂能潼湖厂区", id: 1, power: 12.10, dayCharge: 232.32, dayDisCharge: 456.37, capacity: 133.23, addr: "广东省惠州市仲恺高新区回风8路2323号", state: 1, runTime: 349 },
@@ -73,22 +75,22 @@ const selectType = (item) => {
 const goStation = () => {
     router.push("/station");
 }
-let changeBg = computed(()=>{
-    return function(state){
-        if(state ==1){return 'state1';}
-        if(state==2){return 'state2';}
-        if(state==3){return 'state3';}
-        if(state==4){return 'state4';}
-        else{return 'state5';}
+let changeBg = computed(() => {
+    return function (state) {
+        if (state == 1) { return 'state1'; }
+        if (state == 2) { return 'state2'; }
+        if (state == 3) { return 'state3'; }
+        if (state == 4) { return 'state4'; }
+        else { return 'state5'; }
     }
 })
-let cardBg = computed(()=>{
-    return function(state){
-        if(state ==1){return 'bg1';}
-        if(state==2){return 'bg2';}
-        if(state==3){return 'bg3';}
-        if(state==4){return 'bg4';}
-        else{return 'bg5';}
+let cardBg = computed(() => {
+    return function (state) {
+        if (state == 1) { return 'bg1'; }
+        if (state == 2) { return 'bg2'; }
+        if (state == 3) { return 'bg3'; }
+        if (state == 4) { return 'bg4'; }
+        else { return 'bg5'; }
     }
 })
 </script>
@@ -101,24 +103,33 @@ let cardBg = computed(()=>{
                 </van-tab>
             </van-tabs>
             <div class="searchBox">
-                <van-search v-model="stationName" placeholder="请输入电站名称" />
+                <van-search v-model="stationName" :placeholder="$t('stationData.placeText')" />
             </div>
-            <van-list v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+            <van-list v-model:loading="loading" :finished="finished" :finished-text="$t('stationData.nomore')" @load="onLoad">
                 <div class="stationCard" v-for="(item, index) in list" @click="goStation">
                     <van-row :class="cardBg(item.state)">
                         <van-col span="7">
                             <div class="imgBox">
-                                <div class="stateTip" :class="changeBg(item.state)" v-if="item.state == 1">{{ $t('allStation.stateCharge') }}</div>
-                                <div class="stateTip" :class="changeBg(item.state)" v-else-if="item.state == 2">{{$t('allStation.stateDisCharge') }}</div> 
-                                <div class="stateTip" :class="changeBg(item.state)" v-else-if="item.state == 3">{{$t('allStation.stateFailure') }}</div> 
-                                <div class="stateTip" :class="changeBg(item.state)" v-else-if="item.state == 4">{{$t('allStation.stateShutDown') }}</div> 
-                                <div class="stateTip" :class="changeBg(item.state)" v-else>{{ $t('allStation.stateStandby') }}</div>
-                                <van-image radius="8" :src="item.imgSrc" />
+                                <div class="stateTip" :class="changeBg(item.state)" v-if="item.state == 1">
+                                    {{ $t('allStation.stateCharge') }}</div>
+                                <div class="stateTip" :class="changeBg(item.state)" v-else-if="item.state == 2">
+                                    {{ $t('allStation.stateDisCharge') }}</div>
+                                <div class="stateTip" :class="changeBg(item.state)" v-else-if="item.state == 3">
+                                    {{ $t('allStation.stateFailure') }}</div>
+                                <div class="stateTip" :class="changeBg(item.state)" v-else-if="item.state == 4">
+                                    {{ $t('allStation.stateShutDown') }}</div>
+                                <div class="stateTip" :class="changeBg(item.state)" v-else>
+                                    {{ $t('allStation.stateStandby') }}</div>
+                                <van-image radius="8" src="./src/assets/images/Index/pic.png" />
                             </div>
                         </van-col>
                         <van-col span="17">
                             <div class="rightBox">
-                                <div class="runTime" :class="changeBg(item.state)">安全运行<span>{{ item.runTime }}</span>天</div>
+                                <div class="runTime" :class="changeBg(item.state)">
+                                    <div class="runTimaName">{{ $t('stationData.safe') }}</div>
+                                    <div class="runTimaDay">{{ item.runTime }}</div>
+                                    <div class="runTimaName">{{ $t('stationData.day') }}</div>
+                                </div>
                                 <div class="stationInfo">
                                     <div class="stationName">
                                         <p>{{ item.label }}</p> <van-icon name="arrow" />
@@ -126,19 +137,19 @@ let cardBg = computed(()=>{
                                     <div class="powerInfo">
                                         <div class="powerDataBox">
                                             <div class="powerTitle">{{ $t('stationData.capacity') }}</div>
-                                            <div class="powerData">{{ item.capacity }}<span>kWh</span></div>
+                                            <div class="powerData">{{ unitChange(1,item.capacity,'',true).number }}<span>{{ unitChange(1,item.capacity,'',true).unit }}</span></div>
                                         </div>
                                         <div class="powerDataBox">
                                             <div class="powerTitle">{{ $t('stationData.dailyCharge') }}</div>
-                                            <div class="powerData">{{ item.dayCharge }}<span>kWh</span></div>
+                                            <div class="powerData">{{ unitChange(1,item.dayCharge,'',true).number }}<span>{{ unitChange(1,item.dayCharge,'',true).unit }}</span></div>
                                         </div>
                                         <div class="powerDataBox">
                                             <div class="powerTitle">{{ $t('stationData.dailyDisCharge') }}</div>
-                                            <div class="powerData">{{ item.dayDisCharge }}<span>kWh</span></div>
+                                            <div class="powerData">{{ unitChange(1,item.dayDisCharge,'',true).number }}<span>{{ unitChange(1,item.dayDisCharge,'',true).unit }}</span></div>
                                         </div>
                                         <div class="powerDataBox">
                                             <div class="powerTitle">{{ $t('stationData.power') }}</div>
-                                            <div class="powerData">{{ item.power }}<span>kW</span></div>
+                                            <div class="powerData">{{ unitChange(3,item.power,'',true).number }}<span>{{ unitChange(3,item.power,'',true).unit }}</span></div>
                                         </div>
                                     </div>
                                     <div class="addrInfo">地址：{{ item.addr }}</div>
@@ -158,7 +169,7 @@ let cardBg = computed(()=>{
     width: 100%;
     height: 100%;
     padding-top: 10px;
-
+    font-family: 'msyh';
     .tabTypeBox {
         .van-tabs {
 
@@ -223,11 +234,13 @@ let cardBg = computed(()=>{
                 margin-top: 24px;
                 border-radius: 0px 50px 16px 16px;
                 box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.15);
+
                 .van-row {
                     height: 100%;
                     border-radius: 0px 50px 16px 16px;
-                    background-size:cover;
+                    background-size: cover;
                     background-repeat: no-repeat;
+
                     .van-col {
                         height: 100%;
                         display: flex;
@@ -252,6 +265,7 @@ let cardBg = computed(()=>{
                                 color: #ffffff;
                                 text-align: center;
                             }
+
                             .van-image {
                                 width: 176px;
                                 height: 176px;
@@ -268,7 +282,7 @@ let cardBg = computed(()=>{
                             align-items: center;
 
                             .runTime {
-                                height: 36px;
+                                // height: 36px;
                                 display: flex;
                                 align-items: center;
                                 position: absolute;
@@ -277,12 +291,24 @@ let cardBg = computed(()=>{
                                 border-radius: 0px 32px 0px 32px;
                                 padding: 5px 20px;
                                 color: #ffffff;
-                                font-size: 18px;
 
-                                p{
-                                font-size: 18px;
+                                div {
+                                    height: 36px;
+                                    line-height: 36px;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    line-height: normal; //安卓字体偏上
+                                    vertical-align: middle;
+                                    font-family: sans-serif; //苹果手机缺少字体
                                 }
-                                span {
+
+                                .runTimaName {
+                                    font-size: 18px;
+                                }
+
+                                .runTimaDay {
+                                    margin: 0 3px;
                                     font-weight: bold;
                                     font-size: 28px;
                                 }
@@ -344,9 +370,10 @@ let cardBg = computed(()=>{
                                 }
 
                                 .addrInfo {
+                                    text-overflow: ellipsis;
                                     overflow: hidden;
                                     padding-right: 20px;
-                                    white-space: inherit;
+                                    white-space: nowrap;
                                     color: var(--allStation-tab-title);
                                     height: 30px;
                                     font-size: 22px;
@@ -355,41 +382,45 @@ let cardBg = computed(()=>{
                         }
 
                         .state1 {
-                                background-color: var(--allStation-state-charge)
-                            }
+                            background-color: var(--allStation-state-charge)
+                        }
 
-                            .state2 {
-                                background-color: var(--allStation-state-disCharge)
-                            }
+                        .state2 {
+                            background-color: var(--allStation-state-disCharge)
+                        }
 
-                            .state3 {
-                                background-color: var(--allStation-state-Failure)
-                            }
+                        .state3 {
+                            background-color: var(--allStation-state-Failure)
+                        }
 
-                            .state4 {
-                                background-color: var(--allStation-state-OffGrid)
-                            }
+                        .state4 {
+                            background-color: var(--allStation-state-OffGrid)
+                        }
 
-                            .state5 {
-                                background-color: var(--allStation-state-Standby)
-                            }
+                        .state5 {
+                            background-color: var(--allStation-state-Standby)
+                        }
                     }
                 }
 
-                .bg1{
-                    background-image:var(--allStation-state-charge-bg);
+                .bg1 {
+                    background-image: var(--allStation-state-charge-bg);
                 }
-                .bg2{
-                    background-image:var(--allStation-state-disCharge-bg);
+
+                .bg2 {
+                    background-image: var(--allStation-state-disCharge-bg);
                 }
-                .bg3{
-                    background-image:var(--allStation-state-Failure-bg);
+
+                .bg3 {
+                    background-image: var(--allStation-state-Failure-bg);
                 }
-                .bg4{
-                    background-image:var(--allStation-state-OffGrid-bg);
+
+                .bg4 {
+                    background-image: var(--allStation-state-OffGrid-bg);
                 }
-                .bg5{
-                    background-image:var(--allStation-state-Standby-bg);
+
+                .bg5 {
+                    background-image: var(--allStation-state-Standby-bg);
                 }
             }
         }

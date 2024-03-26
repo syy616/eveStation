@@ -1,34 +1,47 @@
 <template>
   <div class="station">
     <van-row class="header">
-      <span class="back"> <van-icon name="arrow-left" /></span>
+      <span class="back" @click="router.go(-1)">
+        <van-icon name="arrow-left"
+      /></span>
       <van-row class="title">
-        <span>亿纬时代B区<van-icon name="play" /></span>
+        <span @click="StionSelect"
+          >{{ fieldValue }}<van-icon name="play"
+        /></span>
       </van-row>
     </van-row>
     <van-row class="banner">
-      <img src="@/assets/images/station/Topo_dark.png" alt="" />
+      <div class="top-bg"></div>
     </van-row>
     <van-row class="sysChartBox">
-      <van-col span="24">
-        <div class="systemCount">
-          <div class="sysCountTitle">{{ $t("allStation.sysCount") }}</div>
-          <div id="sysCountChart"></div>
-        </div>
-      </van-col>
+      <div class="systemCount">
+        <div class="sysCountTitle">{{ $t("station.chartTitle") }}</div>
+        <div id="sysCountChart"></div>
+      </div>
     </van-row>
     <van-row class="tabBox">
       <van-tabs class="tabFirst" v-model:active="tabActive" sticky>
-        <van-tab
-          class="tabFirst"
-          v-for="(item, index) in tabList"
-          :title="item.label"
-          :to="item.path"
-        >
-          <router-view></router-view>
+        <van-tab name="system" :title="$t('station.system')">
+          <system></system>
+        </van-tab>
+        <van-tab name="income" :title="$t('station.income')">
+          <income></income>
+        </van-tab>
+        <van-tab name="energy" :title="$t('station.energy')">
+          <energy></energy>
+        </van-tab>
+        <van-tab name="equipment" :title="$t('station.equipment')">
+          <equipment></equipment>
         </van-tab>
       </van-tabs>
     </van-row>
+    <van-popup v-model:show="showPicker" round position="bottom">
+      <van-picker
+        :columns="columns"
+        @cancel="showPicker = false"
+        @confirm="onConfirm"
+      />
+    </van-popup>
   </div>
 </template>
 
@@ -36,33 +49,18 @@
 //数据导入
 import { onMounted, getCurrentInstance, ref } from "vue";
 import { useI18n } from "vue-i18n";
+import { useRouter } from "vue-router";
+import system from "./tabs/system.vue";
+import income from "./tabs/income.vue";
+import energy from "./tabs/energy.vue";
+import equipment from "./tabs/equipment.vue";
+
+const router = useRouter();
 
 const echarts =
   getCurrentInstance().appContext.config.globalProperties.$echarts;
 const { t } = useI18n();
-const tabActive = ref(0);
-const tabList = ref([
-  {
-    label: t("allStation.tabTitle1"),
-    name: "system",
-    path: "/station/system",
-  },
-  {
-    label: t("allStation.tabTitle2"),
-    name: "income",
-    path: "/station/income",
-  },
-  {
-    label: t("allStation.tabTitle3"),
-    name: "equipment",
-    path: "/station/equipment",
-  },
-  {
-    label: t("allStation.tabTitle3"),
-    name: "energy",
-    path: "/station/energy",
-  },
-]);
+const tabActive = ref("system");
 
 //生命周期
 onMounted(() => systemCountChart());
@@ -96,26 +94,52 @@ const systemCountChart = () => {
           },
         },
         data: [
-          { value: 28, name: t("allStation.stateCharge") },
-          { value: 30, name: t("allStation.stateDisCharge") },
-          { value: 40, name: t("allStation.stateFailure") },
-          { value: 38, name: t("allStation.stateShutDown") },
-          { value: 32, name: t("allStation.stateStandby") },
+          { value: 28, name: t("station.charge") }, //充电
+          { value: 30, name: t("station.disCharge") }, //放电
+          { value: 38, name: t("station.failure") }, //故障
+          { value: 32, name: t("station.shutDown") }, //离网
+          { value: 40, name: t("station.standby") }, //待机
         ],
       },
     ],
   });
+  window.onresize = function () {
+    sysCountChart.resize();
+  };
+};
+
+//切换场站相关
+const columns = [
+  { text: "亿纬时代", value: "亿纬时代" },
+  { text: "亿纬锂能A区", value: "亿纬锂能A区" },
+  { text: "亿纬锂能B区", value: "亿纬锂能B区" },
+  { text: "亿纬动力9座", value: "亿纬动力9座" },
+  { text: "亿纬锂能潼湖工厂", value: "亿纬锂能潼湖工厂" },
+];
+
+const fieldValue = ref("亿纬时代B区");
+const showPicker = ref(false);
+const StionSelect = () => {
+  showPicker.value = true;
+};
+
+const onConfirm = ({ selectedOptions }) => {
+  showPicker.value = false;
+  fieldValue.value = selectedOptions[0].text;
 };
 </script>
 
 <style scoped lang="less">
 .station {
+  height: 100%;
   display: flex;
   flex-direction: column;
+  background-color: var(--stations-background-color);
   .header {
     position: fixed;
     z-index: 999;
     width: 100%;
+    background-color: var(--stations-head-color);
     .back {
       height: 100%;
       position: absolute;
@@ -144,27 +168,33 @@ const systemCountChart = () => {
     }
   }
   .banner {
-    width: 100%;
-    img {
+    margin-top: 20px;
+    .top-bg {
+      height: 584px !important;
       width: 100%;
+      background: var(--stations-bg-img) no-repeat;
+      background-size: 100%;
     }
   }
   .sysChartBox {
     margin-top: -50px;
     padding: 0 24px;
+
     .systemCount {
       display: flex;
       flex-direction: column;
       width: 100%;
       height: 440px;
       background: #343434;
-      border-radius: 16px 16px 16px 16px;
+      // border-radius: 16px;
       padding: 24px;
-      // padding-bottom: 10px;
       box-sizing: border-box;
+      background: var(--stations-echart-bg);
+      border-radius: 16px;
+      border: 1px solid #b4b4b4;
 
       .sysCountTitle {
-        color: var(--allStation-box-title-color);
+        color: var(--text-color);
         font-weight: 400;
         font-size: 28px;
       }
@@ -176,27 +206,27 @@ const systemCountChart = () => {
     }
   }
   .tabBox {
+    flex: 1;
     width: 100%;
-    // min-height: calc(100% - 662px);
-    height: 600px;
     margin-top: 20px;
     background: #2c2c2c;
     border-radius: 24px 24px 0 0;
+    background-color: transparent;
     :deep(.tabFirst) {
       width: 100%;
       border-radius: 24px 24px 0 0;
-
+      background-color: var(--stations-tab-bg);
       //    .van-sticky {
       .van-tabs__wrap {
         height: 73px;
 
         .van-tabs__nav {
-          background: none;
+          background: transparent;
 
           .van-tab {
             border-radius: 16px;
-            color: var(--allStation-tab-title);
-            background: var(--allStation-tab-bg);
+            color: var(--text-color);
+            background-color: transparent;
           }
 
           .van-tab--active {
@@ -205,7 +235,29 @@ const systemCountChart = () => {
 
           .van-tabs__line {
             background: #40e2c1;
-            // }
+          }
+        }
+      }
+    }
+  }
+  .van-popup {
+    .van-picker {
+      background-color: var(--stations-van-picker-bg);
+      :deep(.van-picker__toolbar) {
+        border-bottom: 1px solid #8b8b8b;
+        button {
+          color: #40e2c1;
+        }
+      }
+      :deep(.van-picker__columns) {
+        background-color: var(--stations-van-picker-bg);
+
+        .van-picker__mask {
+          background-image: var(--stations-van-picker__mask);
+        }
+        .van-picker-column {
+          .van-picker-column__item {
+            color: var(--text-color);
           }
         }
       }

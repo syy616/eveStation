@@ -3,11 +3,18 @@
 import { defineComponent, onMounted, getCurrentInstance, ref } from "vue";
 import TopTitle from "@components/TopTitle/TopTitle.vue";
 import { useI18n } from "vue-i18n";
+import { useRoute } from "vue-router";
+import allStation from "../StationOverview/AllStation.vue";
+import allProfit from "../StationOverview/AllProfit.vue";
+import allEnergy from "../StationOverview/AllEnergy.vue";
 //data
 const echarts =
   getCurrentInstance().appContext.config.globalProperties.$echarts;
 const { t } = useI18n();
-const tabActive = ref(0);
+const route = useRoute();
+const tabActived = ref("station");
+const activeName = ref(route.path);
+// /IndexPage/StationOverview/allStation
 const tabList = ref([
   {
     label: t("allStation.tabTitle1"),
@@ -70,42 +77,63 @@ const systemCountChart = () => {
       },
     ],
   });
+  window.addEventListener("resize", function () {
+    sysCountChart.resize();
+  });
 };
 </script>
 
 <template>
-    <div class="stationOverview">
-        <TopTitle />
-        <van-row gutter="10" class="mainDataBox">
-            <van-col span="12">
-                <div class="allPowerData">
-                    <div class="powerDataTitle">{{ $t('allStation.allCharge') }}</div>
-                    <div class="powerData">9999.99 <span class="powerUnit">kWh</span></div>
-                </div>
-            </van-col>
-            <van-col span="12">
-                <div class="allPowerData">
-                    <div class="powerDataTitle">{{ $t('allStation.allDisCharge') }}</div>
-                    <div class="powerData">9999.99 <span class="powerUnit">kWh</span></div>
-                </div>
-            </van-col>
-        </van-row>
-        <van-row class="sysChartBox">
-            <van-col span="24">
-                <div class="systemCount">
-                    <div class="sysCountTitle">{{ $t('allStation.sysCount') }}</div>
-                    <div id="sysCountChart"></div>
-                </div>
-            </van-col>
-        </van-row>
-        <van-row class="tabBox">
-            <van-tabs class="tabFirst" v-model:active="tabActive">
-                <van-tab class="tabFirst" v-for="(item, index) in tabList" :title="item.label" :to="item.path">
-                    <router-view></router-view>
+  <div class="stationOverview">
+    <TopTitle />
+    <van-row gutter="10" class="mainDataBox">
+      <van-col span="12">
+        <div class="allPowerData">
+          <div class="powerDataTitle">{{ $t("allStation.allCharge") }}</div>
+          <div class="powerData">
+            9999.99 <span class="powerUnit">kWh</span>
+          </div>
+        </div>
+      </van-col>
+      <van-col span="12">
+        <div class="allPowerData">
+          <div class="powerDataTitle">{{ $t("allStation.allDisCharge") }}</div>
+          <div class="powerData">
+            9999.99 <span class="powerUnit">kWh</span>
+          </div>
+        </div>
+      </van-col>
+    </van-row>
+    <van-row class="sysChartBox">
+      <van-col span="24">
+        <div class="systemCount">
+          <div class="sysCountTitle">{{ $t("allStation.sysCount") }}</div>
+          <div id="sysCountChart"></div>
+        </div>
+      </van-col>
+    </van-row>
+    <van-row class="tabBox">
+      <!-- <van-tabs class="tabFirst" v-model:active="tabActived" :replace="true">
+                <van-tab v-for="(item, index) in tabList" :title="item.label" :name="item.name">
+                     <router-view v-if="activeName === item.path"></router-view>
+                     <allStation v-if="tabActived === 'station'"></allStation>
+                    <allProfit  v-if="tabActived === 'income'"></allProfit>
+                    <allEnergy  v-if="tabActived === 'energy'"></allEnergy>
                 </van-tab>
-            </van-tabs>
-        </van-row>
-    </div>
+      </van-tabs> -->
+      <van-tabs class="tabFirst" v-model:active="tabActived">
+        <van-tab name="station" :title="$t('allStation.tabTitle1')">
+          <allStation v-if="tabActived === 'station'" />
+        </van-tab>
+        <van-tab name="income" :title="$t('allStation.tabTitle2')">
+          <allProfit v-if="tabActived === 'income'" />
+        </van-tab>
+        <van-tab name="energy" :title="$t('allStation.tabTitle3')">
+          <allEnergy v-if="tabActived === 'energy'" />
+        </van-tab>
+      </van-tabs>
+    </van-row>
+  </div>
 </template>
 <style scoped lang="less">
 .stationOverview {
@@ -114,10 +142,11 @@ const systemCountChart = () => {
   box-sizing: border-box;
   background: var(--topTitle-bg);
 
-    .mainDataBox {
-        padding: 88px 24px 0 24px;
-        // margin-top: 88px;
-        box-sizing: border-box;
+  .mainDataBox {
+    padding: 88px 24px 0 24px;
+    // margin-top: 88px;
+    box-sizing: border-box;
+
     .allPowerData {
       height: 132px;
       background-color: var(--allStation-box-bg);
@@ -132,7 +161,7 @@ const systemCountChart = () => {
         font-family: PingFang SC, PingFang SC;
         font-weight: 400;
         font-size: 28px;
-        color: var(--allStation-box-title-color);
+        color: var(--allStation-data-title);
       }
 
       .powerData {
@@ -142,7 +171,7 @@ const systemCountChart = () => {
         color: var(--allStation-box-data-color);
 
         .powerUnit {
-          color: var(--allStation-box-title-color);
+          color: var(--allStation-data-title);
           font-size: 22px;
           font-weight: 400;
         }
@@ -181,29 +210,29 @@ const systemCountChart = () => {
     background: var(--allStation-tab-bg);
     border-radius: 24px 24px 0 0;
 
-         :deep(.tabFirst) {
-            width: 100%;
-            border-radius: 24px 24px 0 0;
+    :deep(.tabFirst) {
+      width: 100%;
+      border-radius: 24px 24px 0 0;
 
-        //    .van-sticky {
-                .van-tabs__wrap {
-                    height: 73px;
+      //    .van-sticky {
+      .van-tabs__wrap {
+        height: 73px;
 
-          .van-tabs__nav {
-            background: none;
+        .van-tabs__nav {
+          background: none;
 
-            .van-tab {
-              border-radius: 16px;
-              color: var(--allStation-tab-title);
-              background: var(--allStation-tab-bg);
-            }
+          .van-tab {
+            border-radius: 16px;
+            color: var(--allStation-tab-title);
+            background: var(--allStation-tab-bg);
+          }
 
-            .van-tab--active {
-              color: #40e2c1;
-            }
+          .van-tab--active {
+            color: #40e2c1;
+          }
 
-            .van-tabs__line {
-              background: #40e2c1;
+          .van-tabs__line {
+            background: #40e2c1;
             // }
           }
         }

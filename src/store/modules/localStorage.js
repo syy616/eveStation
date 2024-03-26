@@ -1,13 +1,15 @@
 import { defineStore } from "pinia";
 
-let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+let userInfo = JSON.parse(localStorage.getItem("userInfo")) || null;
+let theme = localStorage.getItem("theme") || "dark";
 
 //声明了一个useUserStore方法
 const useLocalStorage = defineStore("localStorage", {
   //准备state——用于存储数据
   state: () => {
     return {
-      userInfo: userInfo || "",
+      userInfo: userInfo,
+      theme: theme,
     };
   },
   getters: {},
@@ -18,6 +20,12 @@ const useLocalStorage = defineStore("localStorage", {
       this.userInfo = info;
       localStorage.setItem("userInfo", JSON.stringify(info));
       return this.userInfo;
+    },
+    setTheme(str) {
+      this.theme = str;
+      localStorage.setItem("theme", str);
+      document.getElementById("app").setAttribute("data-theme", str);
+      return this.theme;
     },
   },
 });

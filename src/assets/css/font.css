@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'msyh';
+    src: url('./assets/fonts/msyh.ttc') format('opentype');
+  }
+  body {
+    /* font-family: 'msyh'; */
+  }

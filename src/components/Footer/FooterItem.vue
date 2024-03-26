@@ -7,7 +7,7 @@ const router = useRouter()
 const route = useRoute()
 const activeColor = "#40E2C1";
 // const normalColor =  "rgba(0,0,0,0.4)";
-const normalColor =  "rgba(255, 255, 255, 0.55)";
+const normalColor =  "#a0a0a0";
 
 //prop
 const props = defineProps({
@@ -45,4 +45,32 @@ const activeStyle = computed(() => {
     </div>
 </template>
 
-<style lang="less"></style>
+<style scoped lang="less">
+.footerItem {
+        width: 25%;
+        :deep(.menuItem) {
+            height: 49px;
+            text-align: center;
+
+            >.menuIcon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                >img {
+                    width: 49px;
+                    height: 49px;
+                }
+            }
+
+        }
+
+        >.menuTitle {
+            color: var(--menuColor);
+            font-size: 20px;
+            text-align: center;
+        }
+
+    }
+
+</style>

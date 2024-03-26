@@ -8,7 +8,7 @@ import FooterPage from "@components/Footer/Footer.vue";
     <FooterPage />
   </div>
 </template>
-<style lang="less">
+<style scoped lang="less">
 .indexPage {
   width: 100%;
   height: 100%;

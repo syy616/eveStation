@@ -117,6 +117,7 @@ const routes = [
   {
     path: "/station",
     name: "station",
+    redirect: "/station/system",
     component: () => import("../views/Stations/index.vue"),
     meta: {
       keepAlive: true,
@@ -165,6 +166,17 @@ const routes = [
         },
       },
     ],
+  },
+  {
+    path: "/systemOverview",
+    name: "systemOverview",
+    // redirect: "/systemOverview/system",
+    component: () => import("../views/System/SystemOverview.vue"),
+    meta: {
+      keepAlive: true,
+      requiresAuth: true,
+      title: "储能E管家 | 系统",
+    }
   },
 ];
 
