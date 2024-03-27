@@ -3,8 +3,7 @@
 import { onMounted, getCurrentInstance, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
-
-
+import WaterChart from "./Tabs/WaterChart.vue";
 const router = useRouter();
 const echarts = getCurrentInstance().appContext.config.globalProperties.$echarts;
 const { t } = useI18n();
@@ -27,7 +26,21 @@ const tabList = ref([
     { label: "ES-W-00082(#9)", },
     { label: "ES-W-00082(#10)", },
 ]);
-
+const dataList = ref(
+    {
+        power: 989.23,
+        tem: 23.3,
+        voltage: 750.23,
+        current: 23.3,
+        list: [
+            { label: t('systemPage.maxSingleV'), data: 999.99, unit: "V" },
+            { label: t('systemPage.soh'), data: 34, unit: "%" },
+            { label: t('systemPage.maxSingleT'), data: 33, unit: "℃" },
+            { label: t('systemPage.minSingleV'), data: 349.34, unit: "V" },
+            { label: t('systemPage.wet'), data: 24, unit: "%" },
+            { label: t('systemPage.minSingleT'), data: 40, unit: "℃" },
+        ]
+    });
 
 //生命周期
 onMounted(() => {
@@ -43,23 +56,23 @@ const showAllsys = () => {
 
 }
 const overlayClick = () => {
+    return;
+}
+//点击tab栏更改下拉框中的选中值
+const chooseSystemData = (index) => {
+    selectActive.value = index.name;
+}
+//点击下拉框中的div，更改值并同步更改背景图
+const selectSystem = (e, index) => {
+    selectActive.value = index;
+}
+//确认按钮，确认选择的系统div，并将tab切换为选中的系统
+const confirmSystem = () => {
+    active.value = selectActive.value;
     overlayShow.value = false;
     showTop.value = false;
     showClass.value = 'myPopNone';
     myArrow.value = 'myarrowNone';
-}
-//点击tab栏更改下拉框中的选中值
-const chooseSystemData=(index)=>{
-    selectActive.value = index.name;
-}
-//点击下拉框中的div，更改值并同步更改背景图
-const selectSystem=(e,index)=>{
-    selectActive.value = index;
-}
-//确认按钮，确认选择的系统div，并将tab切换为选中的系统
-const confirmSystem=()=>{
-    active.value =selectActive.value;
-    showAllsys();
 }
 </script>
 <template>
@@ -74,8 +87,7 @@ const confirmSystem=()=>{
         <van-row class="tabBox">
             <van-col span="22">
                 <van-tabs v-model:active="active" @click-tab="chooseSystemData">
-                    <van-tab v-for="(item, index) in tabList" :title="item.label" >
-
+                    <van-tab v-for="(item, index) in tabList" :title="item.label">
                     </van-tab>
                 </van-tabs>
             </van-col>
@@ -83,7 +95,8 @@ const confirmSystem=()=>{
                 <van-icon name="arrow-up" :class="myArrow" @click="showAllsys" />
             </van-col>
         </van-row>
-        <van-overlay :show="overlayShow" @click="overlayClick" z-index="998" />
+        <WaterChart :dataList="dataList"></WaterChart>
+        <van-overlay :show="overlayShow" @click="overlayClick" z-index="998" close-on-click-overlay="false" />
         <div :class="[showClass, 'myPop']">
             <van-row>
                 <van-col span="24">
@@ -92,7 +105,8 @@ const confirmSystem=()=>{
                 <div class="sysListBox">
                     <van-row :gutter="[10, 10]">
                         <van-col v-for="(item, index) in tabList" span="12">
-                            <div class="systemNameBox" :class="selectActive==index?'systemNameBoxCheck':''" @click="selectSystem($event,index)">{{ item.label }}</div>
+                            <div class="systemNameBox" :class="selectActive == index ? 'systemNameBoxCheck' : ''"
+                                @click="selectSystem($event, index)">{{ item.label }}</div>
                         </van-col>
                     </van-row>
                 </div>
@@ -114,7 +128,7 @@ const confirmSystem=()=>{
 
     .header {
         position: fixed;
-        z-index: 999;
+        z-index: 1000;
         width: 100%;
         background-color: var(--stations-head-color);
 
@@ -250,7 +264,7 @@ const confirmSystem=()=>{
                 background-color: var(--systemOverview-sysBg);
             }
 
-            .systemNameBoxCheck{
+            .systemNameBoxCheck {
                 color: #40e2c1;
                 background: var(--systemOverview-SubSys-bg) no-repeat;
                 background-size: 100% 100%;
@@ -262,6 +276,7 @@ const confirmSystem=()=>{
             height: 104px;
             display: flex;
             align-items: center;
+
             .confirm {
                 width: 100%;
                 height: 80px;

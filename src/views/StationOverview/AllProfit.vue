@@ -584,7 +584,7 @@ const onConfirm = (type) => {
                             <div class="choseEsDate" @click="showPopup">{{ esTime }} <van-icon name="arrow-down" />
                             </div>
                             <van-popup round position="bottom" :show="esShow">
-                                <van-date-picker v-model="esDate" :formatter="formatter"
+                                <van-date-picker v-model="esDate"
                                     :title="$t('allStation.dateDate')" :columns-type="columnsType"
                                     @cancel="esShow = false" @confirm="onConfirm(0)" />
                             </van-popup>
@@ -647,7 +647,7 @@ const onConfirm = (type) => {
                             <div class="choseEsDate" @click="showPvPopup">{{ pvTime }} <van-icon name="arrow-down" />
                             </div>
                             <van-popup round position="bottom" :show="pvShow">
-                                <van-date-picker v-model="pvDate" :formatter="formatter"
+                                <van-date-picker v-model="pvDate" 
                                     :title="$t('allStation.dateDate')" :columns-type="columnsType"
                                     @cancel="pvShow = false" @confirm="onConfirm(1)" />
                             </van-popup>
@@ -709,7 +709,7 @@ const onConfirm = (type) => {
                             <div class="choseEsDate" @click="showcpPopup">{{ cpTime }} <van-icon name="arrow-down" />
                             </div>
                             <van-popup round position="bottom" :show="cpShow">
-                                <van-date-picker v-model="cpDate" :formatter="formatter"
+                                <van-date-picker v-model="cpDate" :cancel-button-text="$t('allStation.dateDate')"
                                     :title="$t('allStation.dateDate')" :columns-type="columnsType"
                                     @cancel="cpShow = false" @confirm="onConfirm(2)" />
                             </van-popup>

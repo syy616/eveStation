@@ -12,6 +12,7 @@ import "vant/es/toast/style";
 import "vant/es/dialog/style";
 import pinia from "./store/index";
 import * as echarts from "echarts";
+import 'echarts-liquidfill';
 import { Locale } from 'vant';
 // 引入英文语言包
 import enUS from 'vant/es/locale/lang/en-US';
