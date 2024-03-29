@@ -9,6 +9,7 @@ export const system_cn = {
   disCharge_value: "放电量",
   power: "功率",
   soc: "SOC",
+  search: "搜索系统",
   noMore: "没有更多了",
 };
 export const system_en = {
@@ -22,5 +23,6 @@ export const system_en = {
   disCharge_value: "DisCharge",
   power: "Power",
   soc: "SOC",
+  search: "searching system",
   noMore: "No More",
 };

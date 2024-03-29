@@ -9,7 +9,7 @@
         </van-tab>
       </van-tabs>
       <div class="searchBox">
-        <van-search v-model="stationName" placeholder="搜索系统" />
+        <van-search v-model="stationName" :placeholder="$t('system.search')" />
       </div>
       <van-list
         v-model:loading="loading"
@@ -147,7 +147,6 @@ const onLoad = () => {
   finished.value = true;
 };
 const store = useLocalStorage();
-let ischeck = true;
 const goSystem = () => {
   router.push("/systemOverview");
 };

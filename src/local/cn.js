@@ -12,6 +12,12 @@ import { login_cn as login } from "./module/login";
 import { station_cn as station } from "./module/station/station";
 // 导入电站页-系统模块中文翻译
 import { system_cn as system } from "./module/station/system";
+// 导入电站页-收益模块中文翻译
+import { income_cn as income } from "./module/station/income";
+// 导入电站页-能耗模块中文翻译
+import { energy_cn as energy } from "./module/station/energy";
+// 导入电站页-能耗模块中文翻译
+import { equipment_cn as equipment } from "./module/station/equipment";
 
 import { systemPage_cn as systemPage } from "./module/system/systemPage";
 
@@ -24,5 +30,8 @@ export default {
   login,
   station,
   system,
-  systemPage
+  systemPage,
+  income,
+  energy,
+  equipment,
 };

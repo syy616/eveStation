@@ -9,7 +9,6 @@ const store = useLocalStorage();
 const echarts = getCurrentInstance().appContext.config.globalProperties.$echarts;
 const { t } = useI18n();
 //主题色
-const theme = store.theme;
 const lengendColor = ref('#FFFFFF8C');
 const labelColor = ref('#FFFFFF59');
 
@@ -445,6 +444,7 @@ onMounted(() => {
     esRankChartData();
     pvChartData();
     cpChartData();
+    chartColor();
 });
 //获取当前时间
 const getNowTime = () => {
@@ -593,16 +593,6 @@ const cpChartInit = () => {
 const showPopup = (index) => {
     index == 1 ? esShow.value = true : (index == 2 ? pvShow.value = true : (index == 3 ? cpShow.value = true : esPowerShow.value = true));
 }
-//格式化日期面板
-const formatter = (type, option) => {
-    if (type === 'year') {
-        option.text += '年';
-    }
-    if (type === 'month') {
-        option.text += '月';
-    }
-    return option;
-};
 //关闭es日期面板并确认
 const onConfirm = (type) => {
     if (type == 1) {
@@ -622,6 +612,24 @@ const onConfirm = (type) => {
         powerTime.value = esPowerDate.value[0] + "-" + esPowerDate.value[1];
     }
 }
+//判断主题颜色,修改图表颜色
+const chartColor = () => {
+    let theme = store.theme;
+    switch (theme) {
+        case 'dark':
+            lengendColor.value = "#FFFFFF8C";
+            labelColor.value = "#FFFFFF59";
+            break;
+        case 'light':
+            lengendColor.value = "#00000099";
+            labelColor.value = "#00000066";
+            break;
+        default:
+            lengendColor.value = "#FFFFFF8C";
+            labelColor.value = "#FFFFFF59";
+            break;
+    }
+};
 </script>
 
 <template>
@@ -729,14 +737,14 @@ const onConfirm = (type) => {
                 </div>
                 <van-popup round position="bottom" :show="esShow" v-if="index == 1">
                     <van-date-picker v-model="esDate" :title="$t('allStation.dateDate')" :columns-type="columnsType"
-                        @cancel="esShow = false" @confirm="onConfirm(index)" />
+                        @cancel="esShow = false" @confirm="onConfirm(index)" :cancel-button-text="$t('allStation.cancel')" :confirm-button-text="$t('allStation.confirm')" />
                 </van-popup>
                 <van-popup round position="bottom" :show="pvShow" v-else-if="index == 2">
-                    <van-date-picker v-model="pvDate" :title="$t('allStation.dateDate')" :columns-type="columnsType"
+                    <van-date-picker v-model="pvDate" :title="$t('allStation.dateDate')" :columns-type="columnsType" :cancel-button-text="$t('allStation.cancel')" :confirm-button-text="$t('allStation.confirm')"
                         @cancel="pvShow = false" @confirm="onConfirm(index)" />
                 </van-popup>
                 <van-popup round position="bottom" :show="cpShow" v-else>
-                    <van-date-picker v-model="cpDate" :title="$t('allStation.dateDate')" :columns-type="columnsType"
+                    <van-date-picker v-model="cpDate" :title="$t('allStation.dateDate')" :columns-type="columnsType" :cancel-button-text="$t('allStation.cancel')" :confirm-button-text="$t('allStation.confirm')"
                         @cancel="cpShow = false" @confirm="onConfirm(index)" />
                 </van-popup>
             </template>
@@ -755,7 +763,7 @@ const onConfirm = (type) => {
                     <van-icon name="arrow-down" />
                 </div>
                 <van-popup round position="bottom" :show="esPowerShow" v-if="index == 1">
-                    <van-date-picker v-model="esPowerDate" :title="$t('allStation.dateDate')"
+                    <van-date-picker v-model="esPowerDate" :title="$t('allStation.dateDate')" :cancel-button-text="$t('allStation.cancel')" :confirm-button-text="$t('allStation.confirm')"
                         :columns-type="columnsType" @cancel="esPowerShow = false" @confirm="onConfirm(4)" />
                 </van-popup>
             </template>
@@ -795,7 +803,7 @@ const onConfirm = (type) => {
         align-items: baseline;
 
         .esData {
-            color: var(--allStation-box-title-color);
+            color: var(--allStation-box-data-color);
             font-weight: 500;
             font-size: 34px;
             margin-right: 10px;

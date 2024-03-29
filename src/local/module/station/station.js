@@ -9,16 +9,20 @@ export const station_cn = {
   standby: "待机",
   failure: "故障",
   shutDown: "离网",
+  cancel: "取消",
+  confirm: "确定",
 };
 export const station_en = {
   chartTitle: "Proportion Of System Operation",
   system: "System",
   income: "Income",
   equipment: "Equipment",
-  energy: "能耗",
+  energy: "Energy",
   charge: "Charging",
   disCharge: "Discharge",
   standby: "Standby",
   failure: "Failure",
   shutDown: "Off-Grid",
+  cancel: "Cancel",
+  confirm: "Confirm",
 };

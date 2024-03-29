@@ -38,6 +38,8 @@
     <van-popup v-model:show="showPicker" round position="bottom">
       <van-picker
         :columns="columns"
+        :confirm-button-text="$t('station.confirm')"
+        :cancel-button-text="$t('station.cancel')"
         @cancel="showPicker = false"
         @confirm="onConfirm"
       />
@@ -247,6 +249,9 @@ const onConfirm = ({ selectedOptions }) => {
         border-bottom: 1px solid #8b8b8b;
         button {
           color: #40e2c1;
+        }
+        .van-picker__title {
+          color: var(--text-color);
         }
       }
       :deep(.van-picker__columns) {

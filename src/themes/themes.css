@@ -46,7 +46,8 @@ html [data-theme='dark'] {
     --system-text-color: rgba(255, 255, 255, 0.9);
     --system-text-lightColor: rgba(255, 255, 255, 0.55);
 
-    
+    --equipment-list-bg: rgba(75, 75, 75, 1);
+    --equipment-listTitle-color: rgba(255, 255, 255, 0.55)
 }
 
 :root {
@@ -78,4 +79,7 @@ html [data-theme='dark'] {
     --system-tab-bg: #cfcdcd;
     --system-text-color: rgba(0, 0, 0, 0.9);
     --system-text-lightColor: rgba(0, 0, 0, 0.55);
+
+    --equipment-list-bg: rgba(243, 243, 243, 1);
+    --equipment-listTitle-color: rgba(0, 0, 0, 0.60)
 }

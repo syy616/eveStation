@@ -1,25 +1,14 @@
 <script setup>
 import { onMounted, onBeforeMount, getCurrentInstance, ref, nextTick } from "vue";
 import { useI18n } from 'vue-i18n'
+import useLocalStorage from "@/store/modules/localStorage";
+const store = useLocalStorage();
 const echarts = getCurrentInstance().appContext.config.globalProperties.$echarts;
 const { t, locale } = useI18n();
-// const dataList = ref(
-//     {
-//         power: 989.23,
-//         tem: 23.3,
-//         voltage: 750.23,
-//         current: 23.3,
-//         list: [
-//             { label: t('systemPage.maxSingleV'), data: 999.99, unit: "V" },
-//             { label: t('systemPage.soh'), data: 34, unit: "%" },
-//             { label: t('systemPage.maxSingleT'), data: 33, unit: "℃" },
-//             { label: t('systemPage.minSingleV'), data: 349.34, unit: "V" },
-//             { label: t('systemPage.wet'), data: 24, unit: "%" },
-//             { label: t('systemPage.minSingleT'), data: 40, unit: "℃" },
-//         ]
-//     });
+//主题色
+const labelColor = ref('#FFFFFF8C');
 const props = defineProps({
-    dataList:Array
+    dataList:Object
 })
 const waterHeight = ref([0.25, 0.27]);
 const waterOption = ref({
@@ -70,7 +59,7 @@ const waterOption = ref({
             },
             fontSize: 28,
             fontWeight: 500,
-            color: '#fff',
+            color: labelColor,
         },
         outline: {
             // show: false
@@ -98,10 +87,25 @@ const socChartInit = () => {
         socChart.resize();
     };
 };
-
+//判断主题颜色,修改图表颜色
+const chartColor = () => {
+    let theme = store.theme;
+    switch (theme) {
+        case 'dark':
+            labelColor.value = "#FFFFFF";
+            break;
+        case 'light':
+            labelColor.value = "#000000";
+            break;
+        default:
+            labelColor.value = "#FFFFFF";
+            break;
+    }
+};
 //生命周期
 onMounted(() => {
     getData();
+    chartColor();
 });
 </script>
 
@@ -254,7 +258,7 @@ onMounted(() => {
                 line-height: 40px;
                 margin-bottom: 3px;
                 font-weight: 500;
-                color: var(--allStation-box-title-color);
+                color: var(--allStation-box-data-color);
                 font-size: 32px;
             }
 
@@ -298,7 +302,7 @@ onMounted(() => {
                     .bottomData {
                         font-weight: 500;
                         font-size: 32px;
-                        color: var(--allStation-box-title-color);
+                        color: var(--allStation-box-data-color);
                     }
 
                     .bottomDataUnit {

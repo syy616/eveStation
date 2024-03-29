@@ -4,10 +4,14 @@ import { onMounted, getCurrentInstance, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
 import WaterChart from "./Tabs/WaterChart.vue";
+import singleSystem from './Tabs/SingleSystem.vue';
+import cluster from './Tabs/Cluster.vue';
+import cell from './Tabs/Cell.vue';
 const router = useRouter();
 const echarts = getCurrentInstance().appContext.config.globalProperties.$echarts;
 const { t } = useI18n();
 const active = ref(0);
+const tabActived = ref('system');
 const selectActive = ref(0);
 const fieldValue = ref("亿纬时代B区");
 const showClass = ref("");
@@ -96,6 +100,19 @@ const confirmSystem = () => {
             </van-col>
         </van-row>
         <WaterChart :dataList="dataList"></WaterChart>
+        <van-row class="sysTabBox">
+            <van-tabs class="tabFirst" v-model:active="tabActived">
+                <van-tab name="system" :title="$t('systemPage.systemTitle1')">
+                    <singleSystem v-if="tabActived === 'system'" />
+                </van-tab>
+                <van-tab name="cluster" :title="$t('systemPage.systemTitle2')">
+                    <cluster v-if="tabActived === 'cluster'" />
+                </van-tab>
+                <van-tab name="cell" :title="$t('systemPage.systemTitle3')">
+                    <cell v-if="tabActived === 'cell'" />
+                </van-tab>
+            </van-tabs>
+        </van-row>
         <van-overlay :show="overlayShow" @click="overlayClick" z-index="998" close-on-click-overlay="false" />
         <div :class="[showClass, 'myPop']">
             <van-row>
@@ -124,13 +141,13 @@ const confirmSystem = () => {
     height: 100%;
     display: flex;
     flex-direction: column;
-    background-color: var(--stations-background-color);
+    background: var(--systemOverview-bg);
 
     .header {
         position: fixed;
         z-index: 1000;
         width: 100%;
-        background-color: var(--stations-head-color);
+        background-color: var(--systemOverview-header-bg);
 
         .back {
             height: 100%;
@@ -160,7 +177,7 @@ const confirmSystem = () => {
     :deep(.tabBox) {
         margin-top: 80px;
         z-index: 999;
-        background-color: var(--stations-head-color);
+        background-color: var(--systemOverview-header-bg);
 
         .van-tabs {
             .van-tabs__wrap {
@@ -343,6 +360,34 @@ const confirmSystem = () => {
         top: 166px;
     }
 
+    :deep(.sysTabBox){
+        width: 100%;
+        background-color: var(--systemOverview-header-bg);
+        border-radius: 24px 24px 0px 0px;
+        .van-tabs {
+        width: 100%;
 
+            .van-tabs__wrap {
+                height: 73px;
+
+                .van-tabs__nav {
+                    background: none;
+
+                    .van-tab {
+                        color: var(--allStation-tab-title);
+                    }
+
+                    .van-tab--active {
+                        color: #40e2c1;
+                    }
+
+                    .van-tabs__line {
+                        background: #40e2c1;
+                        // }
+                    }
+                }
+            }
+        }
+    }
 }
 </style>
