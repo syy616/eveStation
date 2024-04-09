@@ -728,7 +728,8 @@ const onConfirm = (type) => {
 .allProfit {
     width: 100%;
     padding: 0 24px 120px 24px;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
 
     .storageBox {
         width: 100%;
@@ -746,7 +747,8 @@ const onConfirm = (type) => {
             // background-color: rgba(82, 82, 82, 0.493);
             // border-radius: 24px;
             padding: 24px;
-            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
             // border-radius: 16px;
             // box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.15);
 
@@ -787,8 +789,14 @@ const onConfirm = (type) => {
 
                 .row2 {
                     margin-top: 6px;
+                    display: -webkit-box;
+                    display: -webkit-flex;
+                    display: -ms-flexbox;
                     display: flex;
-                    align-items: baseline;
+                    -webkit-box-align: baseline;
+                    -webkit-align-items: baseline;
+                        -ms-flex-align: baseline;
+                            align-items: baseline;
 
                     .esData {
                         color: var(--allStation-box-data-color);

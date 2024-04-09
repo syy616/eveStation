@@ -1,11 +1,7 @@
-<script setup>
-</script>
-
 <template>
-    <div class="historyData">
-        history
-    </div>
+  <div class="historyData">history</div>
 </template>
-<style lang="less">
 
-</style>
+<script setup></script>
+
+<style lang="less" scoped></style>

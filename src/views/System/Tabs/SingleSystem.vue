@@ -1,6 +1,6 @@
 <script setup>
-import StationSingleCard from '../../../components/StationCard/StationSingleCard.vue';
-import systemCardPage from '../../../components/SystemCard/SystemCardPage.vue';
+import systemCardPage from '@components/SystemCard/SystemCardPage.vue';
+import pcsContent from '../SysstemPopup/pcsContent.vue';
 import { onMounted, onBeforeMount, getCurrentInstance, ref, nextTick } from "vue";
 import { useI18n } from 'vue-i18n'
 import useLocalStorage from "@/store/modules/localStorage";
@@ -10,7 +10,9 @@ import dayjs from "dayjs";
 const echarts = getCurrentInstance().appContext.config.globalProperties.$echarts;
 const { t, locale } = useI18n();
 const store = useLocalStorage();
-
+const props = defineProps({
+    sysName: String
+})
 //数据
 const dateShow = ref(false);
 const pcsMore = ref(false);
@@ -34,33 +36,89 @@ const allData = ref({
         frequency: 23,
         factor: 0.5
     },
+    pcsAllData: {
+        state: 1,
+        ApparentPower: 499.9,
+        BranchMode: 0,
+        BranchPower_01: 0,
+        BranchPower_02: 0,
+        BranchPower_03: 0,
+        BranchPower_04: 0,
+        BranchPower_05: 0,
+        BranchPower_06: 0,
+        BranchPower_07: 0,
+        BranchPower_08: 0,
+        BranchPower_09: 0,
+        BranchPower_10: 0,
+        BranchPower_11: 0,
+        BranchPower_12: 0,
+        BranchPower_13: 0,
+        BranchPower_14: 0,
+        BranchPower_15: 0,
+        BranchPower_16: 0,
+        BranchPower_17: 0,
+        BranchPower_18: 0,
+        BranchPower_19: 0,
+        BranchPower_20: 0,
+        Dc: 693.3,
+        Dp: 520.9,
+        Dv: 747.7,
+        Fault: "[]",
+        Frequency: 0,
+        Ia: 712.9,
+        Ib: 712.4,
+        Ic: 713.9,
+        Id: 23811,
+        ModuleTemp: 0,
+        NetStatus: 0,
+        OccurTime: "2024-04-01 11:11:00",
+        Power: 499.9,
+        PowerFactor: 1,
+        RunState: 0,
+        StationUuid: "1",
+        SwitchStatus: 1,
+        SystemState: 2,
+        SystemUuid: "ES-W-00001",
+        Temp: 0,
+        TodayChargeEnergy: 1768,
+        TodayDisChargeEnergy: 552,
+        TotalChargeEnergy: 2733163.2,
+        TotalDisChargeEnergy: 2561049.1,
+        TotalUnUseEnergy: 42.72,
+        Ua: 405,
+        Ub: 405.8,
+        Uc: 405.2,
+        UnPower: 0,
+        Warn: "[]",
+        WriteTime: "2024-04-01 11:12:20",
+    },
     powerData: [
-        { pcs:234.23,vol:734.93,curr:1.2,bms: 123.4, date: "1" },
-        { pcs:234.23,vol:714.93,curr:1.2,bms: 153.4, date: "2" },
-        { pcs:24.23,vol:734.93,curr:1.2,bms: 134, date: "3" },
-        { pcs:34.23,vol:73.93,curr:1.2,bms: 88.45, date: "4" },
-        { pcs:234.23,vol:634.93,curr:1.2,bms: 123.34, date: "5" },
-        { pcs:234.23,vol:714.93,curr:1.2,bms: 156.54, date: "6" },
-        { pcs:23.23,vol:738.93,curr:1.2,bms: 166.45, date: "7" },
-        { pcs:234.23,vol:794.93,curr:1.2,bms: 123.32, date: "8" },
-        { pcs:24.23,vol:734.93,curr:1.2,bms: 334.2, date: "9" },
-        { pcs:234.23,vol:734.93,curr:1.2,bms: 323.4, date: "10" },
-        { pcs:24.23,vol:737.93,curr:1.2,bms: 236.5, date: "11" },
-        { pcs:234.23,vol:774.93,curr:1.2,bms: 266.6, date: "12" },
+        { pcs: 234.23, vol: 734.93, curr: 1.2, bms: 123.4, date: "1" },
+        { pcs: 234.23, vol: 714.93, curr: 1.2, bms: 153.4, date: "2" },
+        { pcs: 24.23, vol: 734.93, curr: 1.2, bms: 134, date: "3" },
+        { pcs: 34.23, vol: 73.93, curr: 1.2, bms: 88.45, date: "4" },
+        { pcs: 234.23, vol: 634.93, curr: 1.2, bms: 123.34, date: "5" },
+        { pcs: 234.23, vol: 714.93, curr: 1.2, bms: 156.54, date: "6" },
+        { pcs: 23.23, vol: 738.93, curr: 1.2, bms: 166.45, date: "7" },
+        { pcs: 234.23, vol: 794.93, curr: 1.2, bms: 123.32, date: "8" },
+        { pcs: 24.23, vol: 734.93, curr: 1.2, bms: 334.2, date: "9" },
+        { pcs: 234.23, vol: 734.93, curr: 1.2, bms: 323.4, date: "10" },
+        { pcs: 24.23, vol: 737.93, curr: 1.2, bms: 236.5, date: "11" },
+        { pcs: 234.23, vol: 774.93, curr: 1.2, bms: 266.6, date: "12" },
     ],
     chargeData: [
-        { charge:234.23,disCharge:734.93,curr:1.2,bms: 123.4, date: "1" },
-        { charge:234.23,disCharge:714.93,curr:1.2,bms: 153.4, date: "2" },
-        { charge:24.23,disCharge:734.93,curr:1.2,bms: 134, date: "3" },
-        { charge:34.23,disCharge:73.93,curr:1.2,bms: 88.45, date: "4" },
-        { charge:234.23,disCharge:634.93,curr:1.2,bms: 123.34, date: "5" },
-        { charge:234.23,disCharge:714.93,curr:1.2,bms: 156.54, date: "6" },
-        { charge:23.23,disCharge:738.93,curr:1.2,bms: 166.45, date: "7" },
-        { charge:234.23,disCharge:794.93,curr:1.2,bms: 123.32, date: "8" },
-        { charge:24.23,disCharge:734.93,curr:1.2,bms: 334.2, date: "9" },
-        { charge:234.23,disCharge:734.93,curr:1.2,bms: 323.4, date: "10" },
-        { charge:24.23,disCharge:737.93,curr:1.2,bms: 236.5, date: "11" },
-        { charge:234.23,disCharge:774.93,curr:1.2,bms: 266.6, date: "12" },
+        { charge: 234.23, disCharge: 734.93, curr: 1.2, bms: 123.4, date: "1" },
+        { charge: 234.23, disCharge: 714.93, curr: 1.2, bms: 153.4, date: "2" },
+        { charge: 24.23, disCharge: 734.93, curr: 1.2, bms: 134, date: "3" },
+        { charge: 34.23, disCharge: 73.93, curr: 1.2, bms: 88.45, date: "4" },
+        { charge: 234.23, disCharge: 634.93, curr: 1.2, bms: 123.34, date: "5" },
+        { charge: 234.23, disCharge: 714.93, curr: 1.2, bms: 156.54, date: "6" },
+        { charge: 23.23, disCharge: 738.93, curr: 1.2, bms: 166.45, date: "7" },
+        { charge: 234.23, disCharge: 794.93, curr: 1.2, bms: 123.32, date: "8" },
+        { charge: 24.23, disCharge: 734.93, curr: 1.2, bms: 334.2, date: "9" },
+        { charge: 234.23, disCharge: 734.93, curr: 1.2, bms: 323.4, date: "10" },
+        { charge: 24.23, disCharge: 737.93, curr: 1.2, bms: 236.5, date: "11" },
+        { charge: 234.23, disCharge: 774.93, curr: 1.2, bms: 266.6, date: "12" },
     ],
 });
 let powerChart = null;
@@ -90,9 +148,9 @@ const powerOption = ref({
             type: "dashed"
         },
         textStyle: {
-            color: "#9d9d9d" 
+            color: "#9d9d9d"
         },
-        data: ['BMS','PCS',t('systemPage.systemDcVol'),t('systemPage.systemDcCurrent')]
+        data: ['BMS', 'PCS', t('systemPage.systemDcVol'), t('systemPage.systemDcCurrent')]
     },
     xAxis: [
         {
@@ -128,13 +186,13 @@ const powerOption = ref({
             areaStyle: {},
             tooltip: {
                 valueFormatter: function (value) {
-                    return value +  ' kW';
+                    return value + ' kW';
                 }
             },
             data: []
         },
         {
-            name:"PCS",
+            name: "PCS",
             type: 'line',
             areaStyle: {},
             tooltip: {
@@ -192,9 +250,9 @@ const chargeOption = ref({
             type: "dashed"
         },
         textStyle: {
-            color: "#9d9d9d" 
+            color: "#9d9d9d"
         },
-        data: [t('systemPage.systemCharge'),t('systemPage.systemDisCharge')]
+        data: [t('systemPage.systemCharge'), t('systemPage.systemDisCharge')]
     },
     xAxis: [
         {
@@ -235,11 +293,11 @@ const chargeOption = ref({
             data: []
         },
         {
-            name:t('systemPage.systemDisCharge'),
+            name: t('systemPage.systemDisCharge'),
             type: 'bar',
             tooltip: {
                 valueFormatter: function (value) {
-                    return value +  'kWh';
+                    return value + 'kWh';
                 }
             },
             data: []
@@ -257,25 +315,25 @@ onMounted(() => {
 //弹出日期面板
 const showPopup = (index) => {
     dateShow.value = true;
-    dateIndex.value=index;
-    if(index==2){
-        defaultDate.value = [powerTime.value[0],powerTime.value[1]];
+    dateIndex.value = index;
+    if (index == 2) {
+        defaultDate.value = [powerTime.value[0], powerTime.value[1]];
     }
-    if(index==3){
-        defaultDate.value = [chargeTime.value[0],chargeTime.value[1]];
+    if (index == 3) {
+        defaultDate.value = [chargeTime.value[0], chargeTime.value[1]];
     }
 }
 //关闭日期面板
-const onConfirm=()=>{
-    if(dateIndex.value==2){
-      powerTime.value[0] = defaultDate.value[0]  ;
-      powerTime.value[1] = defaultDate.value[1]  ;
+const onConfirm = () => {
+    if (dateIndex.value == 2) {
+        powerTime.value[0] = defaultDate.value[0];
+        powerTime.value[1] = defaultDate.value[1];
     }
-    if(dateIndex.value==3){
-      chargeTime.value[0] = defaultDate.value[0] ;
-      chargeTime.value[1] = defaultDate.value[1] ;
+    if (dateIndex.value == 3) {
+        chargeTime.value[0] = defaultDate.value[0];
+        chargeTime.value[1] = defaultDate.value[1];
     }
-    dateShow.value=false
+    dateShow.value = false
 }
 //获取当前时间
 const getNowTime = () => {
@@ -283,8 +341,8 @@ const getNowTime = () => {
     let year = date.getFullYear();
     let month = date.getMonth() + 1;
     month = month < 10 ? "0" + month : month;
-    powerTime.value[0] = chargeTime.value[0] = year+"";  //页面默认初始当月
-    powerTime.value[1] = chargeTime.value[1] = month+"";  //页面默认初始当月
+    powerTime.value[0] = chargeTime.value[0] = year + "";  //页面默认初始当月
+    powerTime.value[1] = chargeTime.value[1] = month + "";  //页面默认初始当月
 }
 
 //处理echart数据
@@ -341,7 +399,7 @@ const chargeChartInit = () => {
     });
 };
 //展示PCS详细信息
-const showMorePcs = ()=>{
+const showMorePcs = () => {
     pcsMore.value = true;
 };
 </script>
@@ -354,7 +412,8 @@ const showMorePcs = ()=>{
             $t('systemPage.systemChargeTitle')) }}</span>
             </template>
             <template v-slot:dateBox>
-                <div class="choseEsDate" @click="showPopup(index)">{{ index == 1 ?"":(index ==2 ?powerTime[0]+"-"+powerTime[1] : chargeTime[0]+"-"+chargeTime[1]) }}
+                <div class="choseEsDate" @click="showPopup(index)">{{ index == 1 ? "" : (index == 2
+            ? powerTime[0] + "-" + powerTime[1] : chargeTime[0] + "-" + chargeTime[1]) }}
                     <van-icon name="arrow-down" />
                 </div>
             </template>
@@ -502,7 +561,7 @@ const showMorePcs = ()=>{
                 </van-row>
             </template>
             <template v-slot:moreIcon>
-                <van-icon name="ellipsis" @click="showMorePcs"/>
+                <van-icon name="ellipsis" @click="showMorePcs" />
             </template>
             <template v-slot:chartBox>
                 <div id="powerChart" class="chartDomBox" ref="powerChart" v-if="index == 2"></div>
@@ -514,8 +573,8 @@ const showMorePcs = ()=>{
                 @cancel="dateShow = false" @confirm="onConfirm" :cancel-button-text="$t('allStation.cancel')"
                 :confirm-button-text="$t('allStation.confirm')" />
         </van-popup>
-        <van-popup v-model:show="pcsMore" closeable round :style="{ padding: '64px',height: '90%',width:'90%' }" >
-            
+        <van-popup class="pcsMoreBox" v-model:show="pcsMore" closeable round :closeOnClickOverlay="false">
+            <pcsContent :pcsAllData="allData.pcsAllData" :sysName="sysName"></pcsContent>
         </van-popup>
     </div>
 </template>
@@ -523,11 +582,13 @@ const showMorePcs = ()=>{
 .singleSystem {
     width: 100%;
     height: 100%;
-    padding:0 24px 24px 24px;
+    padding: 0 24px 24px 24px;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
 
     .rowData {
         padding: 12px 24px;
+        -webkit-box-sizing: border-box;
         box-sizing: border-box;
 
         .row1 {
@@ -541,7 +602,13 @@ const showMorePcs = ()=>{
 
         .row2 {
             margin-top: 6px;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
             display: flex;
+            -webkit-box-align: baseline;
+            -webkit-align-items: baseline;
+            -ms-flex-align: baseline;
             align-items: baseline;
 
             .esData {
@@ -556,7 +623,6 @@ const showMorePcs = ()=>{
                 font-size: 20px;
             }
         }
-
     }
 
     .chartDomBox {
@@ -570,31 +636,44 @@ const showMorePcs = ()=>{
         text-align: right;
         color: var(--allStation-tab-title);
     }
-    .van-popup {
-    .van-picker {
-      background-color: var(--stations-van-picker-bg);
-      :deep(.van-picker__toolbar) {
-        border-bottom: 1px solid #8b8b8b;
-        button {
-          color: #40e2c1;
-        }
-        .van-picker__title{
-            color: var(--text-color);
-        }
-      }
-      :deep(.van-picker__columns) {
-        background-color: var(--stations-van-picker-bg);
 
-        .van-picker__mask {
-          background-image: var(--stations-van-picker__mask);
+    .van-popup {
+        .van-picker {
+            background-color: var(--stations-van-picker-bg);
+
+            :deep(.van-picker__toolbar) {
+                border-bottom: 1px solid #8b8b8b;
+
+                button {
+                    color: #40e2c1;
+                }
+
+                .van-picker__title {
+                    color: var(--text-color);
+                }
+            }
+
+            :deep(.van-picker__columns) {
+                background-color: var(--stations-van-picker-bg);
+
+                .van-picker__mask {
+                    background-image: var(--stations-van-picker__mask);
+                }
+
+                .van-picker-column {
+                    .van-picker-column__item {
+                        color: var(--text-color);
+                    }
+                }
+            }
         }
-        .van-picker-column {
-          .van-picker-column__item {
-            color: var(--text-color);
-          }
-        }
-      }
     }
-  }
+
+    .pcsMoreBox {
+        width: 90%;
+        height: 1100px;
+        background: var(--systemOverview-showBg);
+        padding: 29px 24px;
+    }
 }
 </style>

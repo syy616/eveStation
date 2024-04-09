@@ -10,6 +10,8 @@ import { income_en as income } from "./module/station/income";
 import { energy_en as energy } from "./module/station/energy";
 // 导入电站页-能耗模块英文翻译
 import { equipment_en as equipment } from "./module/station/equipment";
+// 导入事件也英文翻译
+import { event_en as event } from "./module/event/event";
 
 import {
   menus_en as menus,
@@ -33,4 +35,5 @@ export default {
   income,
   energy,
   equipment,
+  event,
 };

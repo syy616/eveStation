@@ -7,6 +7,7 @@ import "amfe-flexible/index.js"; //设置根字体
 import router from "./router"; //路由
 import i18n from "./local/index"; //多语言
 import { Toast } from "vant";
+import { Lazyload } from 'vant';
 import "vant/lib/index.css";
 import "vant/es/toast/style";
 import "vant/es/dialog/style";
@@ -30,7 +31,9 @@ app.config.globalProperties.$i18n = i18n;
 //       : "/dev-sw.js?dev-sw"
 //   );
 // }
-
+app.use(Lazyload, {
+    lazyComponent: true,
+  });
 app.use(i18n).use(router).use(pinia).use(Toast);
 app.mount("#app");
 // createApp(App).use(router).mount('#app')

@@ -42,6 +42,9 @@ html [data-theme='dark'] {
     --systemOverview-bg:#181818FF;
     --systemOverview-SubSys-bg:url("@/assets/images/system/systemBg.png");
     --systemOverview-boxShadow:0px 2px 4px -1px rgba(0,0,0,0.12), 0px 4px 8px 0px rgba(0,0,0,0.08), 0px 1px 10px 0px rgba(0,0,0,0.05);
+    --clusterSingle-border:1px solid rgba(220,220,220,0.5);
+    --cluster-databg:none;
+    --cell-titleBg:#4B4B4BFF;
 }
 
 :root {
@@ -72,4 +75,8 @@ html [data-theme='dark'] {
     --systemOverview-SubSys-bg:url("@/assets/images/system/systemBg.png");
     --systemOverview-bg:linear-gradient(to left, #DFF8F3 10%, #E7F2F6 100%);
     --systemOverview-boxShadow:0px 2px 4px -1px rgba(0,0,0,0.12), 0px 4px 8px 0px rgba(0,0,0,0.08), 0px 1px 10px 0px rgba(0,0,0,0.05);
+    --clusterSingle-border:1px solid #DCDCDC;
+    --cluster-databg:linear-gradient(to left, #DFF8F3 10%, #E7F2F6 100%);
+    --cell-titleBg:#F3F3F3FF;
+
 }

@@ -137,107 +137,116 @@ const systemCountChart = () => {
 </template>
 <style scoped lang="less">
 .stationOverview {
-  width: 100%;
-  height: calc(100% - 88px);
-  box-sizing: border-box;
-  background: var(--topTitle-bg);
-
-  .mainDataBox {
-    padding: 88px 24px 0 24px;
-    // margin-top: 88px;
-    box-sizing: border-box;
-
-    .allPowerData {
-      height: 132px;
-      background-color: var(--allStation-box-bg);
-      border-radius: 16px 16px 16px 16px;
-      box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.12),
-        0px 4px 8px 0px rgba(0, 0, 0, 0.08),
-        0px 1px 10px 0px rgba(0, 0, 0, 0.05);
-      padding: 22px 24px;
-      box-sizing: border-box;
-
-      .powerDataTitle {
-        font-family: PingFang SC, PingFang SC;
-        font-weight: 400;
-        font-size: 28px;
-        color: var(--allStation-data-title);
-      }
-
-      .powerData {
-        margin-top: 16px;
-        font-weight: 500;
-        font-size: 36px;
-        color: var(--allStation-box-data-color);
-
-        .powerUnit {
-          color: var(--allStation-data-title);
-          font-size: 22px;
-          font-weight: 400;
-        }
-      }
-    }
-  }
-
-  .sysChartBox {
-    margin-top: 20px;
-    padding: 0 24px;
-
-    .systemCount {
-      width: 100%;
-      height: 380px;
-      background: var(--allStation-system-chart-bg);
-      border-radius: 16px 16px 16px 16px;
-      padding: 24px;
-      box-sizing: border-box;
-
-      .sysCountTitle {
-        color: var(--allStation-box-title-color);
-        font-weight: 400;
-        font-size: 28px;
-      }
-
-      #sysCountChart {
-        height: 290px;
-      }
-    }
-  }
-
-  .tabBox {
     width: 100%;
-    min-height: calc(100% - 662px);
-    margin-top: 20px;
-    background: var(--allStation-tab-bg);
-    border-radius: 24px 24px 0 0;
-
-    :deep(.tabFirst) {
+    height: -webkit-calc(100% - 88px);
+    height: calc(100% - 88px);
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    background: var(--topTitle-bg);
+  
+    .mainDataBox {
+      padding: 88px 24px 0 24px;
+      // margin-top: 88px;
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box;
+  
+      .allPowerData {
+        height: 132px;
+        background-color: var(--allStation-box-bg);
+        border-radius: 16px 16px 16px 16px;
+        -webkit-box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.12),
+          0px 4px 8px 0px rgba(0, 0, 0, 0.08),
+          0px 1px 10px 0px rgba(0, 0, 0, 0.05);
+                box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.12),
+          0px 4px 8px 0px rgba(0, 0, 0, 0.08),
+          0px 1px 10px 0px rgba(0, 0, 0, 0.05);
+        padding: 22px 24px;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+  
+        .powerDataTitle {
+          font-family: PingFang SC, PingFang SC;
+          font-weight: 400;
+          font-size: 28px;
+          color: var(--allStation-data-title);
+        }
+  
+        .powerData {
+          margin-top: 16px;
+          font-weight: 500;
+          font-size: 36px;
+          color: var(--allStation-box-data-color);
+  
+          .powerUnit {
+            color: var(--allStation-data-title);
+            font-size: 22px;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+  
+    .sysChartBox {
+      margin-top: 20px;
+      padding: 0 24px;
+  
+      .systemCount {
+        width: 100%;
+        height: 380px;
+        background: var(--allStation-system-chart-bg);
+        border-radius: 16px 16px 16px 16px;
+        padding: 24px;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+  
+        .sysCountTitle {
+          color: var(--allStation-box-title-color);
+          font-weight: 400;
+          font-size: 28px;
+        }
+  
+        #sysCountChart {
+          height: 290px;
+        }
+      }
+    }
+  
+    .tabBox {
       width: 100%;
+      min-height: -webkit-calc(100% - 662px);
+      min-height: calc(100% - 662px);
+      margin-top: 20px;
+      background: var(--allStation-tab-bg);
       border-radius: 24px 24px 0 0;
-
-      //    .van-sticky {
-      .van-tabs__wrap {
-        height: 73px;
-
-        .van-tabs__nav {
-          background: none;
-
-          .van-tab {
-            border-radius: 16px;
-            color: var(--allStation-tab-title);
-            background: var(--allStation-tab-bg);
-          }
-
-          .van-tab--active {
-            color: #40e2c1;
-          }
-
-          .van-tabs__line {
-            background: #40e2c1;
-            // }
+  
+      :deep(.tabFirst) {
+        width: 100%;
+        border-radius: 24px 24px 0 0;
+  
+        //    .van-sticky {
+        .van-tabs__wrap {
+          height: 73px;
+  
+          .van-tabs__nav {
+            background: none;
+  
+            .van-tab {
+              border-radius: 16px;
+              color: var(--allStation-tab-title);
+              background: var(--allStation-tab-bg);
+            }
+  
+            .van-tab--active {
+              color: #40e2c1;
+            }
+  
+            .van-tabs__line {
+              background: #40e2c1;
+              // }
+            }
           }
         }
       }
     }
   }
-}
 </style>

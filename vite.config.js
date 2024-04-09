@@ -163,6 +163,7 @@ export default defineConfig({
       "~": path.resolve(__dirname, "./"),
       "@": fileURLToPath(new URL("./src", import.meta.url)), //"@": path.resolve(__dirname, "./src"),
       "@components": path.resolve(__dirname, "./src/components"), // 使用时为 "@components/HelloWorld.vue"
+      "@utils": path.resolve(__dirname, "./src/utils"), // 使用时为 "@components/HelloWorld.vue"
     },
     extensions: [".mjs", ".js", ".mts", ".ts", ".jsx", ".tsx", ".json"],
   },

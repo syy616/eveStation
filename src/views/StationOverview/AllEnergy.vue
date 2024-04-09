@@ -782,7 +782,8 @@ const chartColor = () => {
 .allEnergy {
     width: 100%;
     padding: 0 24px 120px 24px;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
 
     .secCol {
         margin-top: 10px;
@@ -799,8 +800,14 @@ const chartColor = () => {
 
     .row2 {
         margin-top: 6px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
         display: flex;
-        align-items: baseline;
+        -webkit-box-align: baseline;
+        -webkit-align-items: baseline;
+            -ms-flex-align: baseline;
+                align-items: baseline;
 
         .esData {
             color: var(--allStation-box-data-color);

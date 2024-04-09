@@ -1,16 +1,19 @@
 <script setup>
-import { onMounted, onBeforeMount, getCurrentInstance, ref, nextTick } from "vue";
+import { onMounted, onUnmounted, getCurrentInstance, ref, nextTick } from "vue";
 import { useI18n } from 'vue-i18n'
 import useLocalStorage from "@/store/modules/localStorage";
+import { Lazyload } from 'vant';
+
 const store = useLocalStorage();
 const echarts = getCurrentInstance().appContext.config.globalProperties.$echarts;
 const { t, locale } = useI18n();
 //主题色
 const labelColor = ref('#FFFFFF8C');
 const props = defineProps({
-    dataList:Object
+    dataList: Object,
+    isTop: Boolean
 })
-const waterHeight = ref([0.25, 0.27]);
+const waterHeight = ref([props.dataList.soc, props.dataList.soc + 0.05]);
 const waterOption = ref({
     series: {
         type: 'liquidFill',
@@ -76,7 +79,9 @@ let socChart = null;
 const getData = () => {
     waterOption.value.series.data = waterHeight.value;
     nextTick(() => {
-        socChartInit();
+        // Lazyload.lazyLoad(socChartBox.value, () => {
+            socChartInit();
+        // });
     })
 }
 //init图表
@@ -107,12 +112,16 @@ onMounted(() => {
     getData();
     chartColor();
 });
+onUnmounted(() => {
+    window.removeEventListener('resize', socChart.resize);
+    socChart.dispose();
+});
 </script>
 
 <template>
     <div class="waterBall">
         <div class="waterContent">
-            <van-row class="waterTitle">
+            <van-row class="waterTitle" v-if="isTop">
                 <span>{{ $t('systemPage.sysRunStateTitle') }}</span>
             </van-row>
             <van-row class="topContent">
@@ -147,8 +156,14 @@ onMounted(() => {
             <van-row class="bottomContent" :gutter="[12, 12]">
                 <van-col span="8" class="bottomCol" v-for="(item, index) in props.dataList.list">
                     <van-row class="bottomDataBox">
-                        <van-col class="bottomData">{{ item.data }}</van-col>
-                        <van-col class="bottomDataUnit">{{ item.unit }}</van-col>
+                        <van-col class="bottomData"
+                            :class="item.color == 'red' ? 'redColor' : (item.color == 'blue' ? 'blueColor' : '')">{{
+                item.data
+            }}</van-col>
+                        <van-col class="bottomDataUnit"
+                            :class="item.color == 'red' ? 'redColor' : (item.color == 'blue' ? 'blueColor' : '')">{{
+                item.unit
+                            }}</van-col>
                     </van-row>
                     <van-row>
                         <van-col class="bottomTitle">{{ item.label }}</van-col>
@@ -163,15 +178,14 @@ onMounted(() => {
 .waterBall {
     width: 100%;
     height: 626px;
-    padding: 24px;
-    box-sizing: border-box;
 
     .waterContent {
         width: 100%;
         height: 100%;
         border-radius: 24px 24px 24px 24px;
         background-color: var(--systemOverview-showBg);
-        padding: 24px;
+        padding-top: 24px;
+        -webkit-box-sizing: border-box;
         box-sizing: border-box;
 
         .waterTitle {
@@ -188,7 +202,13 @@ onMounted(() => {
         .topContent {
             width: 100%;
             height: 280px;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
             display: flex;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            -ms-flex-pack: center;
             justify-content: center;
             position: relative;
             margin-bottom: 34px;
@@ -197,8 +217,18 @@ onMounted(() => {
                 width: 176px;
                 height: 280px;
                 position: absolute;
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: -ms-flexbox;
                 display: flex;
+                -webkit-box-pack: justify;
+                -webkit-justify-content: space-between;
+                -ms-flex-pack: justify;
                 justify-content: space-between;
+                -webkit-box-orient: vertical;
+                -webkit-box-direction: normal;
+                -webkit-flex-direction: column;
+                -ms-flex-direction: column;
                 flex-direction: column;
             }
 
@@ -224,6 +254,7 @@ onMounted(() => {
                     margin-bottom: 24px;
                     background: url("@/assets/images/system/line1.png") no-repeat;
                     background-size: 100% 100%;
+                    -webkit-transform: scaleY(-1);
                     transform: scaleY(-1);
                 }
             }
@@ -241,6 +272,7 @@ onMounted(() => {
                     width: 100%;
                     height: 100px;
                     margin: 24px 0px 0 0;
+                    -webkit-box-sizing: border-box;
                     box-sizing: border-box;
 
                     .topData {
@@ -282,6 +314,7 @@ onMounted(() => {
                 margin-bottom: 24px;
                 background: url("@/assets/images/system/line2.png") no-repeat;
                 background-size: 100% 100%;
+                -webkit-transform: scaleY(-1);
                 transform: scaleY(-1);
             }
         }
@@ -291,12 +324,22 @@ onMounted(() => {
             width: 100%;
 
             .bottomCol {
+                -webkit-box-sizing: border-box;
                 box-sizing: border-box;
                 height: 84px;
 
                 .bottomDataBox {
+                    display: -webkit-box;
+                    display: -webkit-flex;
+                    display: -ms-flexbox;
                     display: flex;
+                    -webkit-box-align: baseline;
+                    -webkit-align-items: baseline;
+                    -ms-flex-align: baseline;
                     align-items: baseline;
+                    -webkit-box-pack: center;
+                    -webkit-justify-content: center;
+                    -ms-flex-pack: center;
                     justify-content: center;
 
                     .bottomData {
@@ -315,7 +358,13 @@ onMounted(() => {
 
                 .bottomTitle {
                     width: 100%;
+                    display: -webkit-box;
+                    display: -webkit-flex;
+                    display: -ms-flexbox;
                     display: flex;
+                    -webkit-box-pack: center;
+                    -webkit-justify-content: center;
+                    -ms-flex-pack: center;
                     justify-content: center;
                     font-weight: 400;
                     font-size: 28px;
@@ -324,28 +373,12 @@ onMounted(() => {
                 }
             }
 
-            .bottomCol:nth-child(3) {
-                .bottomDataBox {
-                    .bottomData {
-                        color: #F02023FF;
-                    }
-
-                    .bottomDataUnit {
-                        color: #F02023FF;
-                    }
-                }
+            .redColor {
+                color: #F02023FF !important;
             }
 
-            .bottomCol:nth-child(6) {
-                .bottomDataBox {
-                    .bottomData {
-                        color: #5487FFFF;
-                    }
-
-                    .bottomDataUnit {
-                        color: #5487FFFF;
-                    }
-                }
+            .blueColor {
+                color: #5487FFFF !important;
             }
         }
     }

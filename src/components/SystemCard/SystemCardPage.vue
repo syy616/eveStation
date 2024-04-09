@@ -58,9 +58,11 @@ const props = defineProps({
     height: 100%;
     margin-top:24px;
     border-radius: 8px;
-    box-shadow: var(--systemOverview-boxShadow);
+    -webkit-box-shadow: var(--systemOverview-boxShadow);
+            box-shadow: var(--systemOverview-boxShadow);
     padding:16px 32px ;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     .pcsBox {
         .boxTitle {
             width: 100%;
