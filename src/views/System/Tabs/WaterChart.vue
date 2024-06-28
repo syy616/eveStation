@@ -191,9 +191,9 @@ onUnmounted(() => {
         .waterTitle {
             width: 100%;
             height: 38px;
+            margin-left: 24px;
             color: var(--allStation-tab-title);
             font-weight: 400;
-            font-family: PingFang SC, PingFang SC;
             font-size: 28px;
             line-height: 38px;
             font-style: normal;

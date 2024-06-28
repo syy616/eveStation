@@ -21,6 +21,8 @@ import { equipment_cn as equipment } from "./module/station/equipment";
 // 导入事件也英文翻译
 import { event_cn as event } from "./module/event/event";
 import { systemPage_cn as systemPage } from "./module/system/systemPage";
+import { history_cn as history } from "./module/history/history";
+import { mine_cn as mine } from "./module/mine/mine";
 
 export default {
   menus,
@@ -36,4 +38,6 @@ export default {
   energy,
   equipment,
   event,
+  history,
+  mine,
 };

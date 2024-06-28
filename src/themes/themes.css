@@ -52,6 +52,12 @@ html [data-theme='dark'] {
     --TotalEvent-image: url("@/assets/images/totleEvent/dark_bg.png");
     --TotalEvent-card-bg: rgba(44, 44, 44, 1);
     --TotalEvent-text-lightColor: rgba(255, 255, 255, 0.6);
+
+    --HistoryData-table-color: #2c2c2c;
+    --HistoryData-table-headcolor: rgba(255, 255, 255, 0.55);
+    --HistoryData-table-rowColor: #4b4b4b;
+
+    --logou-popup-bg: #434343;
 }
 
 :root {
@@ -90,4 +96,9 @@ html [data-theme='dark'] {
     --TotalEvent-image: url("@/assets/images/totleEvent/white_bg.png");
     --TotalEvent-card-bg: rgba(255, 255, 255, 1);
     --TotalEvent-text-lightColor: rgba(0, 0, 0, 0.6);
+
+    --HistoryData-table-color: rgba(248, 248, 248, 1);
+    --HistoryData-table-headcolor: rgba(0, 0, 0, 0.6);
+    --HistoryData-table-rowColor: #ececec;
+    --logou-popup-bg: #fff;
 }

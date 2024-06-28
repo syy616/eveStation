@@ -14,7 +14,8 @@ const { t } = useI18n();
 const route = useRoute();
 const tabActived = ref("station");
 const activeName = ref(route.path);
-// /IndexPage/StationOverview/allStation
+const sysCountChart =ref(null);
+let stationChart = null;
 const tabList = ref([
   {
     label: t("allStation.tabTitle1"),
@@ -40,8 +41,8 @@ onMounted(() => {
 
 //methods
 const systemCountChart = () => {
-  let sysCountChart = echarts.init(document.getElementById("sysCountChart"));
-  sysCountChart.setOption({
+  let stationChart = echarts.init(sysCountChart.value);
+  stationChart.setOption({
     color: ["#2A83FF", "#FFBA00", "#FF616D", "#A9A9A9", "#20CFED"],
     series: [
       {
@@ -78,7 +79,7 @@ const systemCountChart = () => {
     ],
   });
   window.addEventListener("resize", function () {
-    sysCountChart.resize();
+    stationChart.resize();
   });
 };
 </script>
@@ -108,19 +109,11 @@ const systemCountChart = () => {
       <van-col span="24">
         <div class="systemCount">
           <div class="sysCountTitle">{{ $t("allStation.sysCount") }}</div>
-          <div id="sysCountChart"></div>
+          <div id="sysCountChart" ref="sysCountChart"></div>
         </div>
       </van-col>
     </van-row>
     <van-row class="tabBox">
-      <!-- <van-tabs class="tabFirst" v-model:active="tabActived" :replace="true">
-                <van-tab v-for="(item, index) in tabList" :title="item.label" :name="item.name">
-                     <router-view v-if="activeName === item.path"></router-view>
-                     <allStation v-if="tabActived === 'station'"></allStation>
-                    <allProfit  v-if="tabActived === 'income'"></allProfit>
-                    <allEnergy  v-if="tabActived === 'energy'"></allEnergy>
-                </van-tab>
-      </van-tabs> -->
       <van-tabs class="tabFirst" v-model:active="tabActived">
         <van-tab name="station" :title="$t('allStation.tabTitle1')">
           <allStation v-if="tabActived === 'station'" />
@@ -137,116 +130,116 @@ const systemCountChart = () => {
 </template>
 <style scoped lang="less">
 .stationOverview {
-    width: 100%;
-    height: -webkit-calc(100% - 88px);
-    height: calc(100% - 88px);
+  width: 100%;
+  height: -webkit-calc(100% - 88px);
+  height: calc(100% - 88px);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background: var(--topTitle-bg);
+
+  .mainDataBox {
+    padding: 88px 24px 0 24px;
+    // margin-top: 88px;
     -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-    background: var(--topTitle-bg);
-  
-    .mainDataBox {
-      padding: 88px 24px 0 24px;
-      // margin-top: 88px;
+    box-sizing: border-box;
+
+    .allPowerData {
+      height: 132px;
+      background-color: var(--allStation-box-bg);
+      border-radius: 16px 16px 16px 16px;
+      -webkit-box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.12),
+        0px 4px 8px 0px rgba(0, 0, 0, 0.08),
+        0px 1px 10px 0px rgba(0, 0, 0, 0.05);
+      box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.12),
+        0px 4px 8px 0px rgba(0, 0, 0, 0.08),
+        0px 1px 10px 0px rgba(0, 0, 0, 0.05);
+      padding: 22px 24px;
       -webkit-box-sizing: border-box;
-              box-sizing: border-box;
-  
-      .allPowerData {
-        height: 132px;
-        background-color: var(--allStation-box-bg);
-        border-radius: 16px 16px 16px 16px;
-        -webkit-box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.12),
-          0px 4px 8px 0px rgba(0, 0, 0, 0.08),
-          0px 1px 10px 0px rgba(0, 0, 0, 0.05);
-                box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.12),
-          0px 4px 8px 0px rgba(0, 0, 0, 0.08),
-          0px 1px 10px 0px rgba(0, 0, 0, 0.05);
-        padding: 22px 24px;
-        -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-  
-        .powerDataTitle {
-          font-family: PingFang SC, PingFang SC;
-          font-weight: 400;
-          font-size: 28px;
+      box-sizing: border-box;
+
+      .powerDataTitle {
+        font-family: PingFang SC, PingFang SC;
+        font-weight: 400;
+        font-size: 28px;
+        color: var(--allStation-data-title);
+      }
+
+      .powerData {
+        margin-top: 16px;
+        font-weight: 500;
+        font-size: 36px;
+        color: var(--allStation-box-data-color);
+
+        .powerUnit {
           color: var(--allStation-data-title);
-        }
-  
-        .powerData {
-          margin-top: 16px;
-          font-weight: 500;
-          font-size: 36px;
-          color: var(--allStation-box-data-color);
-  
-          .powerUnit {
-            color: var(--allStation-data-title);
-            font-size: 22px;
-            font-weight: 400;
-          }
-        }
-      }
-    }
-  
-    .sysChartBox {
-      margin-top: 20px;
-      padding: 0 24px;
-  
-      .systemCount {
-        width: 100%;
-        height: 380px;
-        background: var(--allStation-system-chart-bg);
-        border-radius: 16px 16px 16px 16px;
-        padding: 24px;
-        -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-  
-        .sysCountTitle {
-          color: var(--allStation-box-title-color);
+          font-size: 22px;
           font-weight: 400;
-          font-size: 28px;
-        }
-  
-        #sysCountChart {
-          height: 290px;
         }
       }
     }
-  
-    .tabBox {
+  }
+
+  .sysChartBox {
+    margin-top: 20px;
+    padding: 0 24px;
+
+    .systemCount {
       width: 100%;
-      min-height: -webkit-calc(100% - 662px);
-      min-height: calc(100% - 662px);
-      margin-top: 20px;
-      background: var(--allStation-tab-bg);
+      height: 380px;
+      background: var(--allStation-system-chart-bg);
+      border-radius: 16px 16px 16px 16px;
+      padding: 24px;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+
+      .sysCountTitle {
+        color: var(--allStation-box-title-color);
+        font-weight: 400;
+        font-size: 28px;
+      }
+
+      #sysCountChart {
+        height: 290px;
+      }
+    }
+  }
+
+  .tabBox {
+    width: 100%;
+    min-height: -webkit-calc(100% - 662px);
+    min-height: calc(100% - 662px);
+    margin-top: 20px;
+    background: var(--allStation-tab-bg);
+    border-radius: 24px 24px 0 0;
+
+    :deep(.tabFirst) {
+      width: 100%;
       border-radius: 24px 24px 0 0;
-  
-      :deep(.tabFirst) {
-        width: 100%;
-        border-radius: 24px 24px 0 0;
-  
-        //    .van-sticky {
-        .van-tabs__wrap {
-          height: 73px;
-  
-          .van-tabs__nav {
-            background: none;
-  
-            .van-tab {
-              border-radius: 16px;
-              color: var(--allStation-tab-title);
-              background: var(--allStation-tab-bg);
-            }
-  
-            .van-tab--active {
-              color: #40e2c1;
-            }
-  
-            .van-tabs__line {
-              background: #40e2c1;
-              // }
-            }
+
+      //    .van-sticky {
+      .van-tabs__wrap {
+        height: 73px;
+
+        .van-tabs__nav {
+          background: none;
+
+          .van-tab {
+            border-radius: 16px;
+            color: var(--allStation-tab-title);
+            background: var(--allStation-tab-bg);
+          }
+
+          .van-tab--active {
+            color: #40e2c1;
+          }
+
+          .van-tabs__line {
+            background: #40e2c1;
+            // }
           }
         }
       }
     }
   }
+}
 </style>

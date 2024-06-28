@@ -88,6 +88,9 @@ export const systemPage_cn = {
   cluster_voltageDifCons:"簇压差一致性",
   cluster_temDifCons:"簇温度差一致性",
   cluster_name:"簇",
+  //采温点
+  volSimpleTitle:"采压点",
+  temSimpleTitle:"采温点"
 };
 export const systemPage_en = {
   myPopTitle: "Select System",
@@ -178,5 +181,8 @@ export const systemPage_en = {
   cluster_powerCons:"power consistency",
   cluster_voltageDifCons:"voltage difference consistency",
   cluster_temDifCons:"temperature difference consistency",
-  cluster_name:"Cluster"
+  cluster_name:"Cluster",
+    //采温点
+    volSimpleTitle:"pressure point",
+    temSimpleTitle:"temperature point"
 };

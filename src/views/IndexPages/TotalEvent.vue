@@ -262,7 +262,6 @@ const onConfirm = () => {
 .card-content {
   flex: 1;
   padding: 0 24px;
-  padding-bottom: 100px;
 
   overflow: auto;
 

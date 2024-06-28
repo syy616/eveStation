@@ -9,6 +9,10 @@ import { VantResolver } from "unplugin-vue-components/resolvers";
 // import viteImagemin from 'vite-plugin-imagemin'
 // import viteCompression from 'vite-plugin-compression'    //代码压缩
 import { VitePWA } from "vite-plugin-pwa";
+import {
+  createStyleImportPlugin,
+  VxeTableResolve,
+} from "vite-plugin-style-import"; //移动端表格组件按需加载
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -20,6 +24,9 @@ export default defineConfig({
           importStyle: false,
         }),
       ],
+    }),
+    createStyleImportPlugin({
+      resolves: [VxeTableResolve()],
     }),
     //图片压缩
     // viteImagemin({

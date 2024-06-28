@@ -117,51 +117,51 @@ const onLoad = () => {
 </template>
 <style scoped lang="less">
 .allStation {
-    width: 100%;
-    height: 100%;
-    padding-top: 10px;
-  
-    :deep(.tabTypeBox) {
-      .van-tabs {
-        // width: 100%;
-        // border-radius: 24px 24px 0 0;
-        .van-tabs__wrap {
-          height: 73px;
-  
-          .van-tabs__nav--card {
+  width: 100%;
+  height: 100%;
+  padding-top: 10px;
+
+  :deep(.tabTypeBox) {
+    .van-tabs {
+      // width: 100%;
+      // border-radius: 24px 24px 0 0;
+      .van-tabs__wrap {
+        height: 73px;
+
+        .van-tabs__nav--card {
+          border: none;
+          background: none;
+
+          .van-tab {
+            color: var(--allStation-tab-title) !important;
+            background: var(--allStation-tab2-bg) !important;
+            margin-right: 10px;
             border: none;
-            background: none;
-  
-            .van-tab {
-              color: var(--allStation-tab-title) !important;
-              background: var(--allStation-tab2-bg) !important;
-              margin-right: 10px;
-              border: none;
-              border-radius: 4px;
-            }
-  
-            .van-tab--active {
-              color: #ffffff !important;
-              background-color: #40e2c1 !important;
-            }
+            border-radius: 4px;
+          }
+
+          .van-tab--active {
+            color: #ffffff !important;
+            background-color: #40e2c1 !important;
           }
         }
-        .van-tabs__content {
-          .van-tab__panel {
-            .van-list {
-              padding: 0 32px;
-              .stationCard {
-                height: 232px;
-                background-color: var(--allStation-station-bg);
-                margin-bottom: 24px;
-                border-radius: 0px 50px 16px 16px;
-                -webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.15);
-                        box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.15);
-              }
+      }
+      .van-tabs__content {
+        .van-tab__panel {
+          .van-list {
+            padding: 0 32px;
+            .stationCard {
+              height: 232px;
+              background-color: var(--allStation-station-bg);
+              margin-bottom: 24px;
+              border-radius: 0px 50px 16px 16px;
+              -webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.15);
+              box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.15);
             }
           }
         }
       }
     }
   }
+}
 </style>

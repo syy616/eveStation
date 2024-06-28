@@ -6,13 +6,13 @@ import en from "./en";
 
 // 创建 i18n 对象
 const i18n = createI18n({
- legacy: false,
- globalInjection: true, // 全局模式，可以直接使用 $t
- locale: localStorage.getItem("lang") || "cn",
- messages: {
-  "cn": cn,
-  en,
- },
+  legacy: false,
+  globalInjection: true, // 全局模式，可以直接使用 $t
+  locale: localStorage.getItem("language") || "cn",
+  messages: {
+    cn: cn,
+    en,
+  },
 });
 
 export default i18n;

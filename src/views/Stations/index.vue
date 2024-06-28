@@ -16,7 +16,7 @@
     <van-row class="sysChartBox">
       <div class="systemCount">
         <div class="sysCountTitle">{{ $t("station.chartTitle") }}</div>
-        <div id="sysCountChart"></div>
+        <div ref="sysCountChartBox" id="sysCountChart"></div>
       </div>
     </van-row>
     <van-row class="tabBox">
@@ -49,7 +49,7 @@
 
 <script setup>
 //数据导入
-import { onMounted, getCurrentInstance, ref } from "vue";
+import { onMounted, getCurrentInstance, ref, nextTick } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
 import system from "./tabs/system.vue";
@@ -64,12 +64,10 @@ const echarts =
 const { t } = useI18n();
 const tabActive = ref("system");
 
-//生命周期
-onMounted(() => systemCountChart());
-
 //methods
+const sysCountChartBox = ref(null);
 const systemCountChart = () => {
-  let sysCountChart = echarts.init(document.getElementById("sysCountChart"));
+  let sysCountChart = echarts.init(sysCountChartBox.value);
   sysCountChart.setOption({
     color: ["#2A83FF", "#FFBA00", "#FF616D", "#A9A9A9", "#20CFED"],
     series: [
@@ -109,6 +107,12 @@ const systemCountChart = () => {
     sysCountChart.resize();
   };
 };
+//生命周期
+onMounted(() => {
+  nextTick(() => {
+    systemCountChart();
+  });
+});
 
 //切换场站相关
 const columns = [
@@ -188,7 +192,6 @@ const onConfirm = ({ selectedOptions }) => {
       width: 100%;
       height: 440px;
       background: #343434;
-      // border-radius: 16px;
       padding: 24px;
       box-sizing: border-box;
       background: var(--stations-echart-bg);

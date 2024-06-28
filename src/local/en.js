@@ -12,6 +12,8 @@ import { energy_en as energy } from "./module/station/energy";
 import { equipment_en as equipment } from "./module/station/equipment";
 // 导入事件也英文翻译
 import { event_en as event } from "./module/event/event";
+import { history_en as history } from "./module/history/history";
+import { mine_en as mine } from "./module/mine/mine";
 
 import {
   menus_en as menus,
@@ -36,4 +38,6 @@ export default {
   energy,
   equipment,
   event,
+  history,
+  mine,
 };

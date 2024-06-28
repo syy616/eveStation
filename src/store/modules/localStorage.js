@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 
 let userInfo = JSON.parse(localStorage.getItem("userInfo")) || null;
 let theme = localStorage.getItem("theme") || "dark";
+let language = localStorage.getItem("language") || "cn";
 
 //声明了一个useUserStore方法
 const useLocalStorage = defineStore("localStorage", {
@@ -10,6 +11,7 @@ const useLocalStorage = defineStore("localStorage", {
     return {
       userInfo: userInfo,
       theme: theme,
+      language: language,
     };
   },
   getters: {},
@@ -26,6 +28,11 @@ const useLocalStorage = defineStore("localStorage", {
       localStorage.setItem("theme", str);
       document.getElementById("app").setAttribute("data-theme", str);
       return this.theme;
+    },
+    setLanguage(str) {
+      this.language = str;
+      localStorage.setItem("language", str);
+      return this.language;
     },
   },
 });
